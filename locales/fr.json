@@ -1,0 +1,33 @@
+{
+  "welcome": "Bienvenue!",
+  "message": "Ce tutoriel vous est proposé par Lokalise",
+  "association_management": "Gestion des associations pour handicapés 🚀",
+  "name": "Nom",
+  "email": "Email",
+  "password": "Mot de passe",
+  "confirm_password": "Confirmer le mot de passe",
+  "association_name": "Nom de l'association",
+  "organization_type": "Type d'organisation",
+  "phone": "Téléphone",
+  "role": "Rôle",
+  "admin_placeholder": "admin",
+  "association_name_placeholder": "Nom de l'association",
+  "phone_placeholder": "23-456-890",
+  "select_type_placeholder": "Sélectionner le type",
+  "select_role_placeholder": "Sélectionner le rôle",
+  "privacy_policy": "J'accepte la politique de confidentialité",
+  "register": "S'inscrire",
+  "login": {
+    "welcome": "Bienvenue à Aclas! 👋🏻",
+    "description": "Veuillez vous connecter à votre compte et commencer l'aventure",
+    "emailLabel": "Email ou Nom d'utilisateur",
+    "passwordLabel": "Mot de passe",
+    "rememberMe": "Souviens-toi de moi",
+    "forgotPassword": "Mot de passe oublié ?",
+    "loginButton": "Connexion",
+    "newHere": "Nouveau sur notre plateforme ?",
+    "createAccount": "Créer un compte",
+    "learnMore": "Vous voulez en savoir plus sur notre association ?",
+    "clickHere": "Cliquez ici pour plus d'informations"
+  }
+}
