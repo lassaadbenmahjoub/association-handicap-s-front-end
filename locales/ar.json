@@ -31,5 +31,30 @@
     "createAccount": "إنشاء حساب",
     "learnMore": "تريد معرفة المزيد عن جمعيتنا؟",
     "clickHere": "انقر هنا لمزيد من المعلومات"
+  },
+  "Nav": {
+    "Dashboards": "لوحات المعلومات",
+    "FrontPages": "الصفحات الأمامية",
+    "AppsPages": "التطبيقات والصفحات",
+    "AccountSettings": "إعدادات الحساب",
+    "Login": "تسجيل الدخول",
+    "Register": "تسجيل",
+    "UserInterface": "واجهة المستخدم",
+    "Typography": "الطباعة",
+    "Cards": "البطاقات",
+    "FormsTables": "النماذج والجداول",
+    "Tables": "الجداول",
+    "Others": "أخرى",
+    
+      "tabs": {
+        "association": "الجمعية",
+        "services": "الخدمات",
+        "contact": "الاتصال"
+      },
+      "buttons": {
+        "return_to_login": "العودة إلى صفحة تسجيل الدخول"
+      }
+    
+    
   }
 }

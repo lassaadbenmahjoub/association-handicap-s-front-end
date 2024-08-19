@@ -29,5 +29,30 @@
     "createAccount": "Créer un compte",
     "learnMore": "Vous voulez en savoir plus sur notre association ?",
     "clickHere": "Cliquez ici pour plus d'informations"
+  },
+  "Nav": {
+    "Dashboards": "Tableaux de bord",
+    "FrontPages": "Pages d'accueil",
+    "AppsPages": "Applications & Pages",
+    "AccountSettings": "Paramètres du compte",
+    "Login": "Connexion",
+    "Register": "S'inscrire",
+    "UserInterface": "Interface utilisateur",
+    "Typography": "Typographie",
+    "Cards": "Cartes",
+    "FormsTables": "Formulaires & Tableaux",
+    "Tables": "Tableaux",
+    "Others": "Autres"
+  },
+  
+    "tabs": {
+      "association": "Association",
+      "services": "Services",
+      "contact": "Contact"
+    },
+    "buttons": {
+      "return_to_login": "Retour à la page de connexion"
+    
   }
+  
 }

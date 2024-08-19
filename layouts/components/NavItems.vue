@@ -8,19 +8,18 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
   <!-- 👉 Dashboards -->
   <VerticalNavGroup
     :item="{
-      title: 'Dashboards',
+      title: $t('Nav.Dashboards'),
       badgeContent: '0',
       badgeClass: 'bg-error',
       icon: 'bx-home-smile',
     }"
   >
-  
   </VerticalNavGroup>
 
   <!-- 👉 Front Pages -->
   <VerticalNavGroup
     :item="{
-      title: 'Front Pages',
+      title: $t('Nav.FrontPages'),
       icon: 'bx-file',
       badgeContent: 'Pro',
       badgeClass: 'bg-light-primary text-primary',
@@ -31,12 +30,12 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
   <!-- 👉 Apps & Pages -->
   <VerticalNavSectionTitle
     :item="{
-      heading: 'Apps & Pages',
+      heading: $t('Nav.AppsPages'),
     }"
   />
   <VerticalNavLink
     :item="{
-      title: 'Account Settings',
+      title: $t('Nav.AccountSettings'),
       icon: 'bx-user',
       to: '/account-settings',
     }"
@@ -44,14 +43,14 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
 
   <VerticalNavLink
     :item="{
-      title: 'Login',
+      title: $t('Nav.Login'),
       icon: 'bx-log-in',
       to: '/login',
     }"
   />
   <VerticalNavLink
     :item="{
-      title: 'Register',
+      title: $t('Nav.Register'),
       icon: 'bx-user-plus',
       to: '/register',
     }"
@@ -60,20 +59,20 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
   <!-- 👉 User Interface -->
   <VerticalNavSectionTitle
     :item="{
-      heading: 'User Interface',
+      heading: $t('Nav.UserInterface'),
     }"
   />
   <VerticalNavLink
     :item="{
-      title: 'Typography',
+      title: $t('Nav.Typography'),
       icon: 'bx-text',
       to: '/typography',
     }"
   />
- 
+
   <VerticalNavLink
     :item="{
-      title: 'Cards',
+      title: $t('Nav.Cards'),
       icon: 'bx-credit-card',
       to: '/cards',
     }"
@@ -82,14 +81,13 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
   <!-- 👉 Forms & Tables -->
   <VerticalNavSectionTitle
     :item="{
-      heading: 'Forms & Tables',
+      heading: $t('Nav.FormsTables'),
     }"
   />
-  
-  
+
   <VerticalNavLink
     :item="{
-      title: 'Tables',
+      title: $t('Nav.Tables'),
       icon: 'bx-table',
       to: '/tables',
     }"
@@ -98,10 +96,7 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
   <!-- 👉 Others -->
   <VerticalNavSectionTitle
     :item="{
-      heading: 'Others',
+      heading: $t('Nav.Others'),
     }"
   />
-
- 
- 
 </template>
