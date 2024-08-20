@@ -59,6 +59,7 @@ definePageMeta({ layout: "blank" });
 </script>
 
 <template>
+
   <div class="auth-wrapper d-flex align-center justify-center pa-4">
     <div class="position-relative my-sm-16">
       <VImg
@@ -187,6 +188,10 @@ definePageMeta({ layout: "blank" });
               <VBtn block type="submit"> {{ $t('register') }} </VBtn>
             </VRow>
           </VForm>
+          <div class="mt-4 text-center">
+            <p>{{ $t('login.learnMore') }}</p>
+            <RouterLink to="/visiteur" class="text-primary">{{ $t('login.clickHere') }}</RouterLink>
+          </div>
         </VCardText>
       </VCard>
     </div>

@@ -52,7 +52,17 @@
     },
     "buttons": {
       "return_to_login": "Retour à la page de connexion"
-    
+  },
+  "user": {
+    "name": "John Doe",
+    "role": "Admin"
+  },
+  "menu": {
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "pricing": "Tarification",
+    "faq": "FAQ",
+    "logout": "Déconnexion"
   }
   
 }

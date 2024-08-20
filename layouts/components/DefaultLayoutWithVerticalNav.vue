@@ -1,11 +1,10 @@
 <script setup>
 import NavItems from '@/layouts/components/NavItems.vue'
-import logo from '@images/logo.svg?raw'
 import VerticalNavLayout from '@layouts/components/VerticalNavLayout.vue'
 import Footer from '@/layouts/components/Footer.vue'
 import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
 import UserProfile from '@/layouts/components/UserProfile.vue'
-
+import GlobalMenu from '~/components/GlobalMenu.vue'
 
 const route = useRoute()
 
@@ -14,11 +13,13 @@ const hideVerticalNav = ['/visiteur']
 </script>
 
 <template>
-  <div>
+  <div class="container">
+     <GlobalMenu />
   <VerticalNavLayout v-if="!hideVerticalNav.includes(route.path)">
     <!-- 👉 navbar -->
     <template #navbar="{ toggleVerticalOverlayNavActive }">
       <div class="d-flex h-100 align-center">
+    
         <!-- 👉 Vertical nav toggle in overlay mode -->
         <IconBtn
           class="ms-n3 d-lg-none"

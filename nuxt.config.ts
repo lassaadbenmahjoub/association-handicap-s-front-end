@@ -123,6 +123,7 @@ export default defineNuxtConfig({
   modules: ['@vueuse/nuxt', '@nuxtjs/device', '@pinia/nuxt', "@nuxtjs/i18n"],
   i18n: {
     locales: [
+      { code: 'en', iso: 'en-US', name: 'English', file: 'en.json' },
       { code: 'fr', iso: 'fr-FR', name: 'Français', file: 'fr.json' },
       { code: 'ar', iso: 'ar-AR', name: 'العربية', file: 'ar.json', dir: 'rtl' }
     ],

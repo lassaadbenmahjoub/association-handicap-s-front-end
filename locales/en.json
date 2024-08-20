@@ -1,0 +1,67 @@
+{
+    "welcome": "Welcome!",
+    "message": "This tutorial is brought to you by Lokalise",
+    "association_management": "Disabled Association Management 🚀",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "association_name": "Association Name",
+    "organization_type": "Organization Type",
+    "phone": "Phone",
+    "role": "Role",
+    "admin_placeholder": "admin",
+    "association_name_placeholder": "Association Name",
+    "phone_placeholder": "23-456-890",
+    "select_type_placeholder": "Select Type",
+    "select_role_placeholder": "Select Role",
+    "privacy_policy": "I accept the privacy policy",
+    "register": "Register",
+    "login": {
+      "welcome": "Welcome to Aclas! 👋🏻",
+      "description": "Please log in to your account and start the adventure",
+      "emailLabel": "Email or Username",
+      "passwordLabel": "Password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "loginButton": "Login",
+      "newHere": "New to our platform?",
+      "createAccount": "Create an account",
+      "learnMore": "Want to learn more about our association?",
+      "clickHere": "Click here for more information"
+    },
+    "Nav": {
+      "Dashboards": "Dashboards",
+      "FrontPages": "Front Pages",
+      "AppsPages": "Apps & Pages",
+      "AccountSettings": "Account Settings",
+      "Login": "Login",
+      "Register": "Register",
+      "UserInterface": "User Interface",
+      "Typography": "Typography",
+      "Cards": "Cards",
+      "FormsTables": "Forms & Tables",
+      "Tables": "Tables",
+      "Others": "Others"
+    },
+    "tabs": {
+        "association": "Association",
+        "services": "Services",
+        "contact": "Contact"
+    },
+    "buttons": {
+        "return_to_login": "Return to Login Page"
+    },
+    "user": {
+    "name": "John Doe",
+    "role": "Admin"
+  },
+  "menu": {
+    "profile": "Profile",
+    "settings": "Settings",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "logout": "Logout"
+  }
+ 
+}

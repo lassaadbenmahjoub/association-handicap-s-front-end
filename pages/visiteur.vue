@@ -3,37 +3,43 @@ import { ref } from 'vue'
 import AccountAssociation from '@/views/pages/visiteur/AccountAssociation.vue'
 import AccountServices from '@/views/pages/visiteur/AccountServices.vue'
 import AccountContact from '@/views/pages/visiteur/AccountContact.vue'
+
+import { useRouter, useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+
 const router = useRouter()
 const route = useRoute()
+const { t } = useI18n()
 const activeTab = ref(route.params.tab)
+
 // Method to navigate to the login page
 const goToLogin = () => {
   router.push('/login')
 }
+
 // tabs
 const tabs = [
   {
-    title: 'Association',
+    title: t('tabs.association'),
     icon: 'bx-group',
     tab: 'AccountAssociation',
   },
   {
-    title: 'Services',
+    title: t('tabs.services'),
     icon: 'bx-briefcase',
     tab: 'AccountServices',
   },
   {
-    title: 'Contact',
+    title: t('tabs.contact'),
     icon: 'bx-envelope',
     tab: 'AccountContact',
   },
 ]
-
-
 </script>
 
 <template>
   <div class="container">
+   
     <div class="tabs-container">
       <VTabs
         v-model="activeTab"
@@ -78,11 +84,12 @@ const tabs = [
     <!-- Bottom Right Button -->
     <div class="bottom-right">
       <VBtn @click="goToLogin" color="primary">
-        Retour à la page de connexion
+        {{ $t('buttons.returnToLogin') }}
       </VBtn>
     </div>
   </div>
 </template>
+
 <style lang="scss" scoped>
 .container {
   display: flex;
@@ -111,6 +118,3 @@ const tabs = [
   z-index: 1000; /* Ensure the button is above other content */
 }
 </style>
-
-
-
