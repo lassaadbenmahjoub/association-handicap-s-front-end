@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import AccountAssociation from '@/views/pages/visiteur/AccountAssociation.vue'
 import AccountServices from '@/views/pages/visiteur/AccountServices.vue'
 import AccountContact from '@/views/pages/visiteur/AccountContact.vue'
@@ -17,8 +17,8 @@ const goToLogin = () => {
   router.push('/login')
 }
 
-// tabs
-const tabs = [
+// Reactive tabs with translations
+const tabs = computed(() => [
   {
     title: t('tabs.association'),
     icon: 'bx-group',
@@ -34,7 +34,7 @@ const tabs = [
     icon: 'bx-envelope',
     tab: 'AccountContact',
   },
-]
+])
 </script>
 
 <template>
@@ -84,7 +84,7 @@ const tabs = [
     <!-- Bottom Right Button -->
     <div class="bottom-right">
       <VBtn @click="goToLogin" color="primary">
-        {{ $t('buttons.returnToLogin') }}
+        {{ t('buttons.returnToLogin') }}
       </VBtn>
     </div>
   </div>

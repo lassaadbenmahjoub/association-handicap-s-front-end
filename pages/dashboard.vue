@@ -11,6 +11,10 @@ import chart from '@images/cards/chart-success.png'
 import card from '@images/cards/credit-card-primary.png'
 import paypal from '@images/cards/paypal-error.png'
 import wallet from '@images/cards/wallet-info.png'
+
+definePageMeta({
+  middleware: 'auth',
+});
 </script>
 
 <template>
