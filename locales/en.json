@@ -16,7 +16,6 @@
     "select_type_placeholder": "Select Type",
     "select_role_placeholder": "Select Role",
     "privacy_policy": "I accept the privacy policy",
-    "register": "Register",
     "login": {
       "welcome": "Welcome to Aclas! 👋🏻",
       "description": "Please log in to your account and start the adventure",
@@ -30,6 +29,10 @@
       "learnMore": "Want to learn more about our association?",
       "clickHere": "Click here for more information"
     },
+    "register": {
+  "register": "Register",
+  "clickHere": "Click here to Login"
+},
     "Nav": {
       "Dashboards": "Dashboards",
       "FrontPages": "Front Pages",

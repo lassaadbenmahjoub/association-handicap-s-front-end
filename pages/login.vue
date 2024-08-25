@@ -1,39 +1,44 @@
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import axios from 'axios'
-import authV1BottomShape from '@images/svg/auth-v1-bottom-shape.svg?url'
-import authV1TopShape from '@images/svg/auth-v1-top-shape.svg?url'
+import axios from "axios";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-const router = useRouter()
+const router = useRouter();
 
 const form = ref({
-  email: '',
-  password: '',
-  token_name: 'my-token',
+  email: "",
+  password: "",
+  token_name: "my-token",
   remember: false,
-})
+});
 
-const isPasswordVisible = ref(false)
+const isPasswordVisible = ref(false);
 
 const login = async () => {
   try {
-    const response = await axios.post('http://127.0.0.1:8000/api/auth/login', {
+    const response = await axios.post("http://127.0.0.1:8000/api/auth/login", {
       email: form.value.email,
       password: form.value.password,
       token_name: form.value.token_name,
       remember: form.value.remember,
-    })
+    });
 
-    alert('Login successful!')
-    router.push('/')
+    if (response.data.token) {
+      localStorage.setItem("authToken", response.data.token);
+      alert("Login successful!");
+
+      // Rediriger vers le tableau de bord après la connexion réussie
+      await router.push("/dashboard");
+    } else {
+      alert("Login failed: Missing token in response.");
+    }
   } catch (error) {
-    console.error(error)
-    alert('Login failed: ' + (error.response?.data?.message || 'An error occurred.'))
+    console.error(error);
+    alert(
+      "Login failed: " + (error.response?.data?.message || "An error occurred.")
+    );
   }
-}
-
-definePageMeta({ layout: 'blank' })
+};
 </script>
 
 <template>
@@ -54,18 +59,20 @@ definePageMeta({ layout: 'blank' })
       >
         <VCardItem class="justify-center">
           <div class="d-flex align-items-center">
-            <img src="~/assets/images/logo.png" alt="Logo" style="width: 50px; height: 50px; margin-right: 10px;" />
-            <h1 class="app-logo-title">
-              ACLAS
-            </h1>
+            <img
+              src="~/assets/images/logo.png"
+              alt="Logo"
+              style="width: 50px; height: 50px; margin-right: 10px"
+            />
+            <h1 class="app-logo-title">ACLAS</h1>
           </div>
         </VCardItem>
         <VCardText>
           <h4 class="text-h4 mb-1">
-            {{ $t('login.welcome') }}
+            {{ $t("login.welcome") }}
           </h4>
           <p class="mb-0">
-            {{ $t('login.description') }}
+            {{ $t("login.description") }}
           </p>
         </VCardText>
         <VCardText>
@@ -89,32 +96,39 @@ definePageMeta({ layout: 'blank' })
                   :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
-                <div class="d-flex align-center justify-space-between flex-wrap my-6">
+                <div
+                  class="d-flex align-center justify-space-between flex-wrap my-6"
+                >
                   <VCheckbox
                     v-model="form.remember"
                     :label="$t('login.rememberMe')"
                   />
                   <a class="text-primary" href="javascript:void(0)">
-                    {{ $t('login.forgotPassword') }}
+                    {{ $t("login.forgotPassword") }}
                   </a>
                 </div>
                 <VBtn block type="submit">
-                  {{ $t('login.loginButton') }}
+                  {{ $t("login.loginButton") }}
                 </VBtn>
               </VCol>
               <VCol cols="12" class="text-body-1 text-center">
                 <span class="d-inline-block">
-                  {{ $t('login.newHere') }}
+                  {{ $t("login.newHere") }}
                 </span>
-                <NuxtLink class="text-primary ms-1 d-inline-block text-body-1" to="/register">
-                  {{ $t('login.createAccount') }}
+                <NuxtLink
+                  class="text-primary ms-1 d-inline-block text-body-1"
+                  to="/register"
+                >
+                  {{ $t("login.createAccount") }}
                 </NuxtLink>
               </VCol>
             </VRow>
           </VForm>
           <div class="mt-4 text-center">
-            <p>{{ $t('login.learnMore') }}</p>
-            <RouterLink to="/visiteur" class="text-primary">{{ $t('login.clickHere') }}</RouterLink>
+            <p>{{ $t("login.learnMore") }}</p>
+            <RouterLink to="/visiteur" class="text-primary">{{
+              $t("login.clickHere")
+            }}</RouterLink>
           </div>
         </VCardText>
       </VCard>

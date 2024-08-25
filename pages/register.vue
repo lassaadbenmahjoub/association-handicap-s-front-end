@@ -1,9 +1,9 @@
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import axios from "axios";
 import authV1BottomShape from "@images/svg/auth-v1-bottom-shape.svg?url";
 import authV1TopShape from "@images/svg/auth-v1-top-shape.svg?url";
+import axios from "axios";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 
@@ -59,7 +59,6 @@ definePageMeta({ layout: "blank" });
 </script>
 
 <template>
-
   <div class="auth-wrapper d-flex align-center justify-center pa-4">
     <div class="position-relative my-sm-16">
       <VImg
@@ -185,12 +184,19 @@ definePageMeta({ layout: "blank" });
                 </VLabel>
               </div>
 
-              <VBtn block type="submit"> {{ $t('register') }} </VBtn>
+              <VBtn block type="submit"> {{ $t("register.register") }} </VBtn>
             </VRow>
           </VForm>
           <div class="mt-4 text-center">
-            <p>{{ $t('login.learnMore') }}</p>
-            <RouterLink to="/visiteur" class="text-primary">{{ $t('login.clickHere') }}</RouterLink>
+            <p>{{ $t("login.learnMore") }}</p>
+            <RouterLink to="/visiteur" class="text-primary">{{
+              $t("login.clickHere")
+            }}</RouterLink>
+          </div>
+          <div class="mt-4 text-center">
+            <RouterLink to="/login" class="text-primary">{{
+              $t("register.clickHere")
+            }}</RouterLink>
           </div>
         </VCardText>
       </VCard>

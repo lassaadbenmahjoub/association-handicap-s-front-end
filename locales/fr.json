@@ -16,7 +16,6 @@
   "select_type_placeholder": "Sélectionner le type",
   "select_role_placeholder": "Sélectionner le rôle",
   "privacy_policy": "J'accepte la politique de confidentialité",
-  "register": "S'inscrire",
   "login": {
     "welcome": "Bienvenue à Aclas! 👋🏻",
     "description": "Veuillez vous connecter à votre compte et commencer l'aventure",
@@ -29,6 +28,10 @@
     "createAccount": "Créer un compte",
     "learnMore": "Vous voulez en savoir plus sur notre association ?",
     "clickHere": "Cliquez ici pour plus d'informations"
+  },
+  "register": {
+    "register": "S'inscrire",
+    "clickHere": "Cliquez ici pour Connecter"
   },
   "Nav": {
     "Dashboards": "Tableaux de bord",
