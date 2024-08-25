@@ -17,9 +17,8 @@
   "select_role_placeholder": "Sélectionner le rôle",
   "privacy_policy": "J'accepte la politique de confidentialité",
   "login": {
-    "welcome": "Bienvenue à Aclas! 👋🏻",
     "description": "Veuillez vous connecter à votre compte et commencer l'aventure",
-    "emailLabel": "Email ou Nom d'utilisateur",
+    "emailLabel": "Email",
     "passwordLabel": "Mot de passe",
     "rememberMe": "Souviens-toi de moi",
     "forgotPassword": "Mot de passe oublié ?",
@@ -54,7 +53,7 @@
       "contact": "Contact"
     },
     "buttons": {
-      "return_to_login": "Retour à la page de connexion"
+      "returnToLogin": "Retour à la page de connexion"
   },
   "user": {
     "name": "John Doe",

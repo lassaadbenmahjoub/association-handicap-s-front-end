@@ -1,8 +1,16 @@
-function isAuthenticated(): boolean { return false }
-// ---cut---
-export default defineNuxtRouteMiddleware((to, from) => {
-  // isAuthenticated() is an example method verifying if a user is authenticated
-  if (isAuthenticated() === false) {
-    return navigateTo('/login')
+import { defineNuxtRouteMiddleware, navigateTo } from '#app'
+
+const isAuthenticated = (): boolean => {
+  if (process.client) {
+    const token = localStorage.getItem('authToken');
+    console.log('Auth Token:', token); // Debugging line
+    return !!token;
   }
-})
+  return false;
+}
+
+export default defineNuxtRouteMiddleware((to, from) => {
+  if (!isAuthenticated()) {
+    return navigateTo('/login');
+  }
+});

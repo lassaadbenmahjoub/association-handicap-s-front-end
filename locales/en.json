@@ -17,9 +17,8 @@
     "select_role_placeholder": "Select Role",
     "privacy_policy": "I accept the privacy policy",
     "login": {
-      "welcome": "Welcome to Aclas! 👋🏻",
       "description": "Please log in to your account and start the adventure",
-      "emailLabel": "Email or Username",
+      "emailLabel": "Email",
       "passwordLabel": "Password",
       "rememberMe": "Remember me",
       "forgotPassword": "Forgot password?",
@@ -53,8 +52,8 @@
         "contact": "Contact"
     },
     "buttons": {
-        "return_to_login": "Return to Login Page"
-    },
+      "returnToLogin": "Return to Login Page"
+  },
     "user": {
     "name": "John Doe",
     "role": "Admin"

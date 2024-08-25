@@ -2,9 +2,7 @@
 import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-
 const router = useRouter();
-
 const form = ref({
   email: "",
   password: "",
@@ -28,7 +26,7 @@ const login = async () => {
       alert("Login successful!");
 
       // Rediriger vers le tableau de bord après la connexion réussie
-      await router.push("/dashboard");
+      await router.push("/");
     } else {
       alert("Login failed: Missing token in response.");
     }
@@ -39,6 +37,9 @@ const login = async () => {
     );
   }
 };
+definePageMeta({ layout: 'blank' });
+
+
 </script>
 
 <template>
@@ -68,9 +69,6 @@ const login = async () => {
           </div>
         </VCardItem>
         <VCardText>
-          <h4 class="text-h4 mb-1">
-            {{ $t("login.welcome") }}
-          </h4>
           <p class="mb-0">
             {{ $t("login.description") }}
           </p>
@@ -84,14 +82,14 @@ const login = async () => {
                   autofocus
                   :label="$t('login.emailLabel')"
                   type="email"
-                  :placeholder="$t('login.emailPlaceholder')"
+                  :placeholder="$t('login.emailLabel')"
                 />
               </VCol>
               <VCol cols="12">
                 <VTextField
                   v-model="form.password"
                   :label="$t('login.passwordLabel')"
-                  placeholder="......"
+                  :placeholder="$t('login.passwordLabel')"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isPasswordVisible ? 'bx-hide' : 'bx-show'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"

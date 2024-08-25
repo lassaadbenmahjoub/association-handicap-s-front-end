@@ -1,5 +1,35 @@
 <script setup>
-import avatar1 from '@images/avatars/avatar-1.png'
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import avatar1 from '@images/avatars/avatar-1.png';
+import axios from 'axios'; // Assurez-vous qu'axios est installé et importé
+
+const router = useRouter();
+
+const logout = async () => {
+  try {
+    // Récupérer le token d'authentification depuis le localStorage
+    const token = localStorage.getItem('authToken');
+    
+    // Appel API pour se déconnecter
+    await axios.post('http://127.0.0.1:8000/api/auth/logout', {}, {
+      headers: {
+        'Authorization': `Bearer ${token}`, // Ajouter le token dans l'en-tête Authorization
+      },
+    });
+    
+    // Effacer le token du localStorage
+    localStorage.removeItem('authToken');
+    
+    // Rediriger vers la page de connexion
+    router.push('/login');
+  } catch (error) {
+    console.error('Déconnexion échouée:', error);
+    // Afficher une notification ou un message d'erreur à l'utilisateur
+    alert('La déconnexion a échoué. Veuillez réessayer.');
+  }
+};
+
 </script>
 
 <template>
@@ -110,7 +140,7 @@ import avatar1 from '@images/avatars/avatar-1.png'
           <VDivider class="my-2" />
 
           <!-- 👉 Logout -->
-          <VListItem to="/login">
+          <VListItem @click="logout">
             <template #prepend>
               <VIcon
                 class="me-2"

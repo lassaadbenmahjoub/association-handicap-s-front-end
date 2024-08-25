@@ -1,120 +1,85 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import AccountAssociation from '@/views/pages/visiteur/AccountAssociation.vue'
 import AccountServices from '@/views/pages/visiteur/AccountServices.vue'
 import AccountContact from '@/views/pages/visiteur/AccountContact.vue'
-
-import { useRouter, useRoute } from 'vue-router'
-import { useI18n } from 'vue-i18n'
-
 const router = useRouter()
 const route = useRoute()
-const { t } = useI18n()
 const activeTab = ref(route.params.tab)
-
 // Method to navigate to the login page
 const goToLogin = () => {
   router.push('/login')
 }
-
-// Reactive tabs with translations
-const tabs = computed(() => [
+// tabs
+const tabs = [
   {
-    title: t('tabs.association'),
+    title: 'الجمعية',
     icon: 'bx-group',
     tab: 'AccountAssociation',
   },
   {
-    title: t('tabs.services'),
+    title: 'الخدمات',
     icon: 'bx-briefcase',
     tab: 'AccountServices',
   },
   {
-    title: t('tabs.contact'),
+    title: 'الإتصال',
     icon: 'bx-envelope',
     tab: 'AccountContact',
   },
-])
+]
+
+
 </script>
 
 <template>
-  <div class="container">
+  <div>
    
-    <div class="tabs-container">
-      <VTabs
-        v-model="activeTab"
-        show-arrows
-        class="v-tabs-pill"
+    <VTabs
+      v-model="activeTab"
+      show-arrows
+      class="v-tabs-pill"
+    >
+      <VTab
+        v-for="item in tabs"
+        :key="item.icon"
+        :value="item.tab"
       >
-        <VTab
-          v-for="item in tabs"
-          :key="item.icon"
-          :value="item.tab"
-        >
-          <VIcon
-            size="20"
-            start
-            :icon="item.icon"
-          />
-          {{ item.title }}
-        </VTab>
-      </VTabs>
+        <VIcon
+          size="20"
+          start
+          :icon="item.icon"
+        />
+        {{ item.title }}
+      </VTab>
+    </VTabs>
 
-      <VWindow
-        v-model="activeTab"
-        class="mt-5 disable-tab-transition"
-      >
-        <!-- Association -->
-        <VWindowItem value="AccountAssociation">
-          <AccountAssociation />
-        </VWindowItem>
+    <VWindow
+      v-model="activeTab"
+      class="mt-5 disable-tab-transition"
+    >
+      <!-- Association -->
+      <VWindowItem value="AccountAssociation">
+        <AccountAssociation />
+      </VWindowItem>
 
-        <!-- Services -->
-        <VWindowItem value="AccountServices">
-          <AccountServices />
-        </VWindowItem>
+      <!-- Services -->
+      <VWindowItem value="AccountServices">
+        <AccountServices />
+      </VWindowItem>
 
-        <!-- Contact -->
-        <VWindowItem value="AccountContact">
-          <AccountContact />
-        </VWindowItem>
-      </VWindow>
-    </div>
-
+      <!-- Contact -->
+      <VWindowItem value="AccountContact">
+        <AccountContact />
+      </VWindowItem>
+    </VWindow>
     <!-- Bottom Right Button -->
     <div class="bottom-right">
       <VBtn @click="goToLogin" color="primary">
-        {{ t('buttons.returnToLogin') }}
+        {{ $t('buttons.returnToLogin') }}
       </VBtn>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh; /* Ensure the container takes full viewport height */
-  padding: 1rem;
-}
 
-.tabs-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
-.v-tabs-pill {
-  margin-bottom: 1rem; /* Adjust margin as needed */
-}
-
-.bottom-right {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  z-index: 1000; /* Ensure the button is above other content */
-}
-</style>
