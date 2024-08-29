@@ -1,36 +1,37 @@
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import avatar1 from '@images/avatars/avatar-1.png';
-import axios from 'axios'; // Assurez-vous qu'axios est installé et importé
+import { useUserStore } from '~~/stores/user'
+  import { storeToRefs } from 'pinia';
+    const router = useRouter()
+    const userStore = useUserStore()
+    const { email} = storeToRefs(userStore)
 
-const router = useRouter();
+    definePageMeta({
+        middleware: 'is-logged-out'
+    })
 
-const logout = async () => {
-  try {
-    // Récupérer le token d'authentification depuis le localStorage
-    const token = localStorage.getItem('authToken');
-    
-    // Appel API pour se déconnecter
-    await axios.post('http://127.0.0.1:8000/api/auth/logout', {}, {
-      headers: {
-        'Authorization': `Bearer ${token}`, // Ajouter le token dans l'en-tête Authorization
-      },
-    });
-    
-    // Effacer le token du localStorage
-    localStorage.removeItem('authToken');
-    
-    // Rediriger vers la page de connexion
-    router.push('/login');
-  } catch (error) {
-    console.error('Déconnexion échouée:', error);
-    // Afficher une notification ou un message d'erreur à l'utilisateur
-    alert('La déconnexion a échoué. Veuillez réessayer.');
-  }
-};
-
+    onMounted(async () => {
+        try {
+            await userStore.getUser()
+            console.log("zz",getUser)
+        } catch (error) {
+            console.log(error)
+        }
+    })
+    const logout = async () => {
+        let res = confirm('Are you sure you want to sign out?')
+        try {
+            if (res) {
+                await userStore.logout()
+                localStorage.removeItem('token');
+                router.push('/login')
+                return
+            }
+        } catch (error) {
+            console.log(error) 
+        }
+    }
 </script>
+
 
 <template>
   <VBadge
@@ -153,6 +154,11 @@ const logout = async () => {
           </VListItem>
         </VList>
       </VMenu>
+      <div class="w-full h-full p-4 m-8 overflow-y-auto">
+        <div class="flex items-center justify-center p-40 border-4 border-dotted">
+            Profile of: {{ email }}
+        </div>
+    </div>
       <!-- !SECTION -->
     </VAvatar>
   </VBadge>

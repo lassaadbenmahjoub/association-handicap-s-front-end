@@ -1,45 +1,44 @@
 <script setup>
-import axios from "axios";
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { ref } from 'vue';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '~/stores/user'; // Adjust path as needed
+
 const router = useRouter();
+const userStore = useUserStore();
+
+definePageMeta({
+    middleware: 'is-logged-in',
+    layout: 'blank'
+});
+
 const form = ref({
-  email: "",
-  password: "",
-  token_name: "my-token",
-  remember: false,
+    email: '',
+    password: '',
+    token_name: 'my-token', // Ensure this is set correctly
+    remember: false,
 });
 
 const isPasswordVisible = ref(false);
 
 const login = async () => {
-  try {
-    const response = await axios.post("http://127.0.0.1:8000/api/auth/login", {
-      email: form.value.email,
-      password: form.value.password,
-      token_name: form.value.token_name,
-      remember: form.value.remember,
-    });
-
-    if (response.data.token) {
-      localStorage.setItem("authToken", response.data.token);
-      alert("Login successful!");
-
-      // Rediriger vers le tableau de bord après la connexion réussie
-      await router.push("/");
-    } else {
-      alert("Login failed: Missing token in response.");
+    try {
+        // Perform login
+        await userStore.login(form.value.email, form.value.password,form.value.token_name);
+        
+        // Get token from localStorage and set axios headers if needed
+        const token = window.localStorage.getItem('token');
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+        }
+        console.log("eeeeeeeeeee");
+        // Redirect to home page or any other page
+        await router.push('/dashboard');
+    } catch (error) {
+        console.error(error);
+        alert('Login failed: ' + (error.message || 'An error occurred.'));
     }
-  } catch (error) {
-    console.error(error);
-    alert(
-      "Login failed: " + (error.response?.data?.message || "An error occurred.")
-    );
-  }
 };
-definePageMeta({ layout: 'blank' });
-
-
 </script>
 
 <template>
