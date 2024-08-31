@@ -3,7 +3,7 @@ import { useUserStore } from '~~/stores/user'
   import { storeToRefs } from 'pinia';
     const router = useRouter()
     const userStore = useUserStore()
-    const { email} = storeToRefs(userStore)
+    const { email,role} = storeToRefs(userStore)
 
     definePageMeta({
         middleware: 'is-logged-out'
@@ -12,7 +12,7 @@ import { useUserStore } from '~~/stores/user'
     onMounted(async () => {
         try {
             await userStore.getUser()
-            console.log("zz",getUser)
+            
         } catch (error) {
             console.log(error)
         }
@@ -78,10 +78,13 @@ import { useUserStore } from '~~/stores/user'
               </VListItemAction>
             </template>
 
-            <VListItemTitle class="font-weight-semibold">
-              {{ $t('user.name') }}
+            <VListItemTitle class="font-weight-semibold text-wrap" style="white-space: normal; word-break: break-word;">
+              {{ email }} 
             </VListItemTitle>
-            <VListItemSubtitle>{{ $t('user.role') }}</VListItemSubtitle>
+            <VListItemTitle style="font-weight: bold; color: green;">
+              {{ role }}
+            </VListItemTitle>
+            
           </VListItem>
           <VDivider class="my-2" />
 

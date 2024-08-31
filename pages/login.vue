@@ -15,7 +15,6 @@ definePageMeta({
 const form = ref({
     email: '',
     password: '',
-    token_name: 'my-token', // Ensure this is set correctly
     remember: false,
 });
 
@@ -24,7 +23,7 @@ const isPasswordVisible = ref(false);
 const login = async () => {
     try {
         // Perform login
-        await userStore.login(form.value.email, form.value.password,form.value.token_name);
+        await userStore.login(form.value.email, form.value.password);
         
         // Get token from localStorage and set axios headers if needed
         const token = window.localStorage.getItem('token');
