@@ -1,12 +1,12 @@
 <script setup>
 import authV1BottomShape from "@images/svg/auth-v1-bottom-shape.svg?url";
 import authV1TopShape from "@images/svg/auth-v1-top-shape.svg?url";
-import axios from "axios";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { useUserStore } from '~~/stores/user';
 
 const router = useRouter();
-
+const userStore = useUserStore();
 const form = ref({
   name: "",
   email: "",
@@ -14,49 +14,46 @@ const form = ref({
   password_confirmation: "",
   nom_association: "",
   type_organisation: "",
+  adresse: "", // Ensure this is included if required
   telephone: "",
   role: "",
   privacyPolicies: false,
 });
-
 const isPasswordVisible = ref(false);
+const errors = ref(null);
 
 const register = async () => {
+  errors.value = null;
+
   if (!form.value.privacyPolicies) {
-    alert(
-      "Vous devez accepter la politique de confidentialité et les conditions."
-    );
+    alert("Vous devez accepter la politique de confidentialité et les conditions.");
     return;
   }
 
   try {
-    const response = await axios.post(
-      "http://127.0.0.1:8000/api/auth/register",
-      {
-        name: form.value.name,
-        email: form.value.email,
-        password: form.value.password,
-        password_confirmation: form.value.password_confirmation,
-        nom_association: form.value.nom_association,
-        type_organisation: form.value.type_organisation,
-        telephone: form.value.telephone,
-        role: form.value.role,
-      }
+    await userStore.register(
+      form.value.name,
+      form.value.email,
+      form.value.password,
+      form.value.password_confirmation,
+      form.value.nom_association,
+      form.value.type_organisation,
+      form.value.adresse, // Ensure this matches the backend field names
+      form.value.telephone,
+      form.value.role
     );
-
-    alert("Registration successful!");
-    router.push("/login");
+    router.push('/login');
   } catch (error) {
     console.error(error);
-    alert(
-      "Registration failed: " +
-        (error.response?.data?.message || "An error occurred.")
-    );
+    errors.value = error.response?.data?.errors || 'Une erreur est survenue.';
   }
 };
 
 definePageMeta({ layout: "blank" });
 </script>
+
+
+
 
 <template>
   <div class="auth-wrapper d-flex align-center justify-center pa-4">

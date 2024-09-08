@@ -1,9 +1,12 @@
 import svgLoader from 'vite-svg-loader'
 import vuetify from 'vite-plugin-vuetify'
 import { fileURLToPath } from 'node:url'
+import tailwindcss from 'tailwindcss'
+import autoprefixer from 'autoprefixer'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  pages: true,
   app: {
     head: {
       titleTemplate: 'ACLAS ',
@@ -16,7 +19,6 @@ export default defineNuxtConfig({
       }],
     },
   },
-
   devtools: {
     enabled: true,
   },
@@ -41,7 +43,7 @@ export default defineNuxtConfig({
     }],
   },
 
-  plugins: ['@/plugins/vuetify/index.js', '@/plugins/iconify/index.js'],
+  plugins: ['@/plugins/vuetify/index.js', '@/plugins/iconify/index.js', '~/plugins/ckeditor.js'],
 
   imports: {
     dirs: ['./@core/utils', './@core/composable/', './plugins/*/composables/*'],
@@ -114,13 +116,22 @@ export default defineNuxtConfig({
         },
       }),
     ],
+    css: {
+      postcss: {
+        plugins: [
+          tailwindcss(),
+          autoprefixer(),
+        ],
+      },
+    },
   },
 
   build: {
     transpile: ['vuetify'],
   },
 
-  modules: ['@vueuse/nuxt', '@nuxtjs/device', '@pinia/nuxt', "@nuxtjs/i18n"],
+  modules: ['@vueuse/nuxt', '@nuxtjs/device', '@pinia/nuxt', "@nuxtjs/i18n","@vite-pwa/nuxt","@pinia-plugin-persistedstate/nuxt"],
+  
   i18n: {
     locales: [
       { code: 'en', iso: 'en-US', name: 'English', file: 'en.json' },
@@ -133,4 +144,7 @@ export default defineNuxtConfig({
     lazy: true,
     vueI18n: './i18n/i18n.config.ts'
   },
+
+  // Add devOptions here
+ 
 })

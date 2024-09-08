@@ -13,6 +13,6 @@ if (isMobile)
         <LanguageSwitcher />
       <NuxtPage />
     </NuxtLayout>
-  
+    
   </VApp>
 </template>

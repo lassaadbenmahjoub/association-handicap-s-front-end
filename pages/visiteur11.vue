@@ -13,7 +13,7 @@ const goToLogin = () => {
 // tabs
 const tabs = [
   {
-    title: 'association',
+    title: 'الجمعية',
     icon: 'bx-group',
     tab: 'AccountAssociation',
   },
@@ -28,18 +28,17 @@ const tabs = [
     tab: 'AccountContact',
   },
 ]
-definePageMeta({
-  layout: 'custom'
-})
+
 
 </script>
 
 <template>
-  <div class="tabs-container">
+  <div>
+   
     <VTabs
       v-model="activeTab"
       show-arrows
-      class="v-tabs-pill centered-tabs" 
+      class="v-tabs-pill"
     >
       <VTab
         v-for="item in tabs"
@@ -84,19 +83,3 @@ definePageMeta({
 </template>
 
 
-
-<style scoped>
-.tabs-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh; /* Pour centrer verticalement */
-}
-
-.centered-tabs {
-  display: flex;
-  justify-content: center;
-  width: 100%; /* S'assure que le conteneur prend toute la largeur disponible */
-}
-</style>

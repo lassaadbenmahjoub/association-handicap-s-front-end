@@ -13,30 +13,19 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "node",
     "jsx": "preserve",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@layouts/*": [
-        "./@layouts/*"
-      ],
-      "@layouts": [
-        "./@layouts"
-      ],
-      "@core/*": [
-        "./@core/*"
-      ],
-      "@core": [
-        "./@core"
-      ],
-      "@images/*": [
-        "./assets/images/*"
-      ],
-      "@styles/*": [
-        "./assets/styles/*"
-      ]
+      "@/*": ["./*"],
+      "@layouts/*": ["./layouts/*"],
+      "@core/*": ["./core/*"],
+      "@images/*": ["./assets/images/*"],
+      "@styles/*": ["./assets/styles/*"]
     },
     "types": [
       "vite/client",

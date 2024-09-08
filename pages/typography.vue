@@ -1,178 +1,190 @@
 <template>
-  <VRow>
-    <VCol cols="12">
-      <VCard title="Headlines">
-        <VCardText class="d-flex flex-column gap-y-8">
-          <div>
-            <h1 class="text-h1">
-              Heading 1
-            </h1>
-            <span>font-size: 6rem / line-height: 6rem / font-weight: 300</span>
-          </div>
+  <VContainer>
+    <VRow>
+      <VCol cols="12">
+        <VCard title="Manage Association Presentation">
+          <VCardText>
+            <VForm @submit.prevent="submitForm">
+              <VRow>
+                <!-- Language Selector -->
+                <VCol cols="12" md="6">
+                  <VSelect
+                    v-model="selectedLanguage"
+                    :items="languages"
+                    label="Select Language"
+                    required
+                  ></VSelect>
+                </VCol>
 
-          <div>
-            <h2 class="text-h2">
-              Heading 2
-            </h2>
-            <span>font-size: 3.75rem / line-height: 3.75rem / font-weight: 300</span>
-          </div>
+                <!-- Dynamic Fields Based on Selected Language -->
+                <VCol cols="12" md="6">
+                  <VTextField
+                    v-model="form.de_nous"
+                    :label="`De Nous (${selectedLanguage.toUpperCase()})`"
+                    required
+                    hint="Enter the content for 'De Nous'"
+                  ></VTextField>
+                </VCol>
+                <VCol cols="12" md="6">
+                  <VTextField
+                    v-model="form.notre_vision"
+                    :label="`Notre Vision (${selectedLanguage.toUpperCase()})`"
+                    required
+                    hint="Enter the content for 'Notre Vision'"
+                  ></VTextField>
+                </VCol>
+                <VCol cols="12" md="6">
+                  <VTextField
+                    v-model="form.notre_message"
+                    :label="`Notre Message (${selectedLanguage.toUpperCase()})`"
+                    required
+                    hint="Enter the content for 'Notre Message'"
+                  ></VTextField>
+                </VCol>
+                <VCol cols="12" md="6">
+                  <VTextField
+                    v-model="form.nos_objectifs"
+                    :label="`Nos Objectifs (${selectedLanguage.toUpperCase()})`"
+                    required
+                    hint="Enter the content for 'Nos Objectifs'"
+                  ></VTextField>
+                </VCol>
+                <VCol cols="12" md="6">
+                  <VTextField
+                    v-model="form.de_nouvelles_valeurs"
+                    :label="`De Nouvelles Valeurs (${selectedLanguage.toUpperCase()})`"
+                    required
+                    hint="Enter the content for 'De Nouvelles Valeurs'"
+                  ></VTextField>
+                </VCol>
 
-          <div>
-            <h3 class="text-h3">
-              Heading 3
-            </h3>
-            <span>font-size: 3rem / line-height: 3.125rem / font-weight: 400</span>
-          </div>
-
-          <div>
-            <h4 class="text-h4">
-              Heading 4
-            </h4>
-            <span>font-size: 2.125rem / line-height: 2.5rem / font-weight: 400</span>
-          </div>
-
-          <div>
-            <h5 class="text-h5">
-              Heading 5
-            </h5>
-            <span>font-size: 1.5rem  / line-height: 2rem / font-weight: 400</span>
-          </div>
-
-          <div>
-            <h6 class="text-h6">
-              Heading 6
-            </h6>
-            <span>font-size: 1.25rem / line-height: 2rem / font-weight: 500</span>
-          </div>
-        </VCardText>
-      </VCard>
-    </VCol>
-
-    <VCol cols="12">
-      <VCard title="Texts">
-        <VCardText>
-          <VRow no-gutters>
-            <VCol
-              cols="12"
-              md="2"
-            >
-              <span class="text-subtitle-1 text-no-wrap">text-subtitle-1</span>
-            </VCol>
-            <VCol
-              cols="12"
-              md="10"
-              class="mb-6"
-            >
-              <p class="text-subtitle-1 text-truncate mb-1">
-                Cupcake ipsum dolor sit amet fruitcake donut chocolate.
-              </p>
-              <span>font-size: 1rem / line-height: 1.75rem / font-weight: 400</span>
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="2"
-            >
-              <span class="text-subtitle-2 text-no-wrap">text-subtitle-2</span>
-            </VCol>
-            <VCol
-              cols="12"
-              md="10"
-              class="mb-6"
-            >
-              <p class="text-subtitle-2 mb-1">
-                Cupcake ipsum dolor sit amet fruitcake donut chocolate.
-              </p>
-              <span>font-size: 0.875rem / line-height: 1.375rem / font-weight: 500</span>
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="2"
-            >
-              <span class="text-body-1 text-no-wrap">text-body-1</span>
-            </VCol>
-            <VCol
-              cols="12"
-              md="10"
-              class="mb-6"
-            >
-              <p class="text-body-1 mb-1">
-                Cupcake ipsum dolor sit amet fruitcake donut chocolate.
-              </p>
-              <span>font-size: 1rem / line-height: 1.5rem / font-weight: 400</span>
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="2"
-            >
-              <span class="text-body-2 text-no-wrap">text-body-2</span>
-            </VCol>
-            <VCol
-              cols="12"
-              md="10"
-              class="mb-6"
-            >
-              <p class="text-body-2 mb-1">
-                Cupcake ipsum dolor sit amet fruitcake donut chocolate.
-              </p>
-              <span>font-size: 0.875rem / line-height: 1.25rem / font-weight: 400</span>
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="2"
-            >
-              <span class="text-caption">text-caption</span>
-            </VCol>
-            <VCol
-              cols="12"
-              md="10"
-              class="mb-6"
-            >
-              <p class="text-caption mb-1">
-                Cupcake ipsum dolor sit amet fruitcake donut chocolate.
-              </p>
-              <span>font-size: 0.75rem / line-height: 1.25rem / font-weight: 400</span>
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="2"
-            >
-              <span class="text-overline text-no-wrap">text-overline</span>
-            </VCol>
-            <VCol
-              cols="12"
-              md="10"
-              class="mb-6"
-            >
-              <p class="text-overline mb-1">
-                Cupcake ipsum dolor sit amet fruitcake donut chocolate.
-              </p>
-              <span>font-size: 0.75rem / line-height: 2rem / font-weight: 500</span>
-            </VCol>
-
-            <VCol
-              cols="12"
-              md="2"
-            >
-              <span class="text-button">text-button</span>
-            </VCol>
-            <VCol
-              cols="12"
-              md="10"
-              class="mb-6"
-            >
-              <p class="text-button mb-1">
-                Cupcake ipsum dolor sit amet fruitcake donut chocolate.
-              </p>
-              <span>font-size: 0.875rem / line-height: 2.25rem / font-weight: 500</span>
-            </VCol>
-          </VRow>
-        </VCardText>
-      </VCard>
-    </VCol>
-  </VRow>
+                <VCol cols="12">
+                  <VBtn
+                    type="submit"
+                    :color="isNewRecord ? 'primary' : 'success'"
+                  >
+                    {{ isNewRecord ? "Create" : "Update" }}
+                  </VBtn>
+                </VCol>
+              </VRow>
+            </VForm>
+          </VCardText>
+        </VCard>
+      </VCol>
+    </VRow>
+  </VContainer>
 </template>
+
+<script>
+import { ref, onMounted } from "vue";
+import axios from "~/plugins/axios";
+
+const $axios = axios().provide.axios;
+
+export default {
+  name: "AssociationPresentationManage",
+  setup() {
+    const form = ref({
+      de_nous: "",
+      notre_vision: "",
+      notre_message: "",
+      nos_objectifs: "",
+      de_nouvelles_valeurs: "",
+    });
+
+    const languages = ["fr", "ar", "en"];
+    const selectedLanguage = ref("fr");
+    const isNewRecord = ref(true); // Track if it's a new record or update
+
+    // Fetch existing data if editing
+    const fetchExistingData = async () => {
+      try {
+        const response = await $axios.get("/api/associations");
+        const data = response.data;
+
+        if (data.success && data.association_presentations.length > 0) {
+          const presentation = data.association_presentations[0];
+
+          // Map translations to form fields
+          const translations = data.translations || [];
+          const translation = translations.find(
+            (t) => t.locale === selectedLanguage.value
+          );
+
+          if (translation) {
+            form.value.de_nous = translation.de_nous || "";
+            form.value.notre_vision = translation.notre_vision || "";
+            form.value.notre_message = translation.notre_message || "";
+            form.value.nos_objectifs = translation.nos_objectifs || "";
+            form.value.de_nouvelles_valeurs = translation.de_nouvelles_valeurs || "";
+          } else {
+            // Reset fields if no translation is found
+            form.value.de_nous = "";
+            form.value.notre_vision = "";
+            form.value.notre_message = "";
+            form.value.nos_objectifs = "";
+            form.value.de_nouvelles_valeurs = "";
+          }
+
+          isNewRecord.value = false; // Mark as update mode
+        }
+      } catch (error) {
+        console.error("Error fetching existing data:", error);
+      }
+    };
+
+    // Fetch data when component is mounted
+    onMounted(() => {
+      fetchExistingData();
+    });
+
+    // Handle form submission
+    const submitForm = async () => {
+      try {
+        const dataToSend = {
+          ...form.value,
+          locale: selectedLanguage.value
+        };
+
+        if (isNewRecord.value) {
+          await $axios.post("/api/associations", dataToSend);
+          alert("Association presentation created successfully!");
+        } else {
+          await $axios.put(`/api/associations/1`, dataToSend); // Use PUT for update
+          alert("Association presentation updated successfully!");
+        }
+        resetForm(); // Reset form after successful submission
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        alert("Failed to create or update association presentation.");
+      }
+    };
+
+    // Reset form fields
+    const resetForm = () => {
+      form.value = {
+        de_nous: "",
+        notre_vision: "",
+        notre_message: "",
+        nos_objectifs: "",
+        de_nouvelles_valeurs: "",
+      };
+      isNewRecord.value = true; // Mark as create mode
+    };
+
+    return {
+      form,
+      languages,
+      selectedLanguage,
+      submitForm,
+      resetForm,
+      fetchExistingData,
+      isNewRecord,
+    };
+  },
+};
+</script>
+
+<style scoped>
+/* Add any custom styles here */
+</style>

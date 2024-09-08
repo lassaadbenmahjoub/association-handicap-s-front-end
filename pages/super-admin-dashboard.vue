@@ -1,4 +1,4 @@
-<script setup>
+<script setup >
 import AnalyticsCongratulations from '@/views/dashboard/AnalyticsCongratulations.vue'
 import AnalyticsFinanceTabs from '@/views/dashboard/AnalyticsFinanceTab.vue'
 import AnalyticsOrderStatistics from '@/views/dashboard/AnalyticsOrderStatistics.vue'
@@ -12,9 +12,8 @@ import card from '@images/cards/credit-card-primary.png'
 import paypal from '@images/cards/paypal-error.png'
 import wallet from '@images/cards/wallet-info.png'
 definePageMeta({
-  middleware: 'auth', // Apply middleware to this page
-});
-
+  middleware: 'is-logged-out'
+})
 </script>
 
 <template>
