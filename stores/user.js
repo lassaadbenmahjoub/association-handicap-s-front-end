@@ -1,141 +1,116 @@
 import { defineStore } from "pinia";
 import axios from "~/plugins/axios";
 const $axios = axios().provide.axios;
+
 export const useUserStore = defineStore("user", {
   state: () => ({
     id: "",
     name: "",
     email: "",
     role: "",
+    status: "",
     api_token: "",
     isLoggedIn: false,
-    isAuthenticated:false,
   }),
   actions: {
     async login(email, password) {
       try {
         const response = await $axios.post("/api/auth/login", {
           email,
-          password
+          password,
         });
 
-        // Extract data from the response according to the new structure
         const { token, user } = response.data;
-        const { id, email: userEmail, name } = user;
+        const { id, email: userEmail, name, role, status } = user;
 
-        if (!token || !userEmail || !id) {
+        if (!token || !userEmail || !id || !status) {
           throw new Error("Incomplete response data.");
         }
 
-        localStorage.setItem("token", token);
-        this.api_token = token;
-        this.email = userEmail;
-        this.id = id;
-        this.name = name; // Assuming `full_name` should be updated with the `name` field from the user object
-        this.isLoggedIn = true;
-        this.isAuthenticated = true; // Update isAuthenticated
+        // Store user details in state
+        this.$state.api_token = token;
+        this.$state.email = userEmail;
+        this.$state.id = id;
+        this.$state.name = name;
+        this.$state.role = role;
+        this.$state.status = status;
+        this.$state.isLoggedIn = true;
+          localStorage.setItem("token", token);
       } catch (error) {
-        console.error(
-          "Login failed:",
-          error.response?.data?.message || error.message
-        );
-        // Handle login error (e.g., show an alert or a toast notification)
+        console.error("Login failed:", error.response?.data?.message || error.message);
         throw new Error(error.response?.data?.message || "Login failed.");
       }
     },
 
-    // user.js or wherever your store is defined
-  // user.js or wherever your store is defined
-  async register(name, email, password, confirmPassword, nomAssociation, typeOrganisation, adresse, telephone, role) {
-   
+    async register(name, email, password, confirmPassword, nomAssociation, typeOrganisation, adresse, telephone, role) {
+      try {
+        const response = await $axios.post("/api/auth/register", {
+          name,
+          email,
+          password,
+          password_confirmation: confirmPassword,
+          nom_association: nomAssociation,
+          type_organisation: typeOrganisation,
+          adresse,
+          telephone,
+          role
+        });
   
-    try {
-      const response = await $axios.post("/api/auth/register", {
-        name: name,
-        email: email,
-        password: password,
-        password_confirmation: confirmPassword,
-        nom_association: nomAssociation, // Verify field name
-        type_organisation: typeOrganisation, // Verify field name
-        adresse, // Include if required
-        telephone,
-        role
-      });
+        return response.data; // Return response data if needed
+      } catch (error) {
+        console.error("Registration failed:", error.response?.data?.message || error.message);
+        throw new Error(error.response?.data?.message || "Registration failed.");
+      }
+    },
   
-      return response.data; // Return response data if needed
-    } catch (error) {
-      console.error(
-        "Registration failed:",
-        error.response?.data?.message || error.message
-      );
-      throw new Error(
-        error.response?.data?.message || "Registration failed."
-      );
-    }
-  }
-  
-  ,
-  
-
     async getUser() {
       try {
+        // Check if token exists in localStorage and set it in Axios headers
+        const token = localStorage.getItem("token");
+        if (token) {
+          $axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        }
+
         const response = await $axios.get("/api/user");
         const user = response.data.user;
-console.log("zzzzzzzzz",user)
+
         if (!user) {
           throw new Error("User data is missing.");
         }
 
-        const { id, name, email ,role} = user;
+        const { id, name, email, role, status } = user;
 
-        if (!id || !name || !email|| !role) {
+        if (!id || !name || !email || !role || !status) {
           throw new Error("Incomplete user data.");
         }
+        this.$state.id = id;
+        this.$state.name = name;
+        this.$state.email = email;
+        this.$state.role = role;
+        this.$state.status = status;
+        this.$state.isLoggedIn = true;
 
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.role = role;
-        this.isLoggedIn = true;
       } catch (error) {
-        console.error(
-          "Failed to fetch user:",
-          error.response?.data?.message || error.message
-        );
-        // Handle error
-        throw new Error(
-          error.response?.data?.message || "Failed to fetch user."
-        );
+        console.error("Failed to fetch user:", error.response?.data?.message || error.message);
+        throw new Error(error.response?.data?.message || "Failed to fetch user.");
       }
     },
 
+   
     async logout() {
-      try {
-        await $axios.post("/api/auth/logout");
-        this.resetState();
-        localStorage.removeItem("token");
-      } catch (error) {
-        console.error(
-          "Logout failed:",
-          error.response?.data?.message || error.message
-        );
-        // Handle logout error
-        throw new Error(error.response?.data?.message || "Logout failed.");
-      }
-    },
-
-    resetState() {
-      this.id = "";
-      this.name = "";
-      this.email = "";
-      this.role ="";
-      this.api_token = "";
-      this.isLoggedIn = false;
-      this.isAuthenticated = false; // Reset isAuthenticated
-    },
-    checkAuth() {
-        return this.isAuthenticated; // Method to check authentication status
-      }
+      await $axios.post('/api/auth/logout')
+      this.resetState()
   },
-  persist: true,
+    resetState() {
+      this.$state.id = "";
+      this.$state.name = "";
+      this.$state.email = "";
+      this.$state.status = "";
+      this.$state.role = "";
+      this.$state.api_token = "";
+      this.$state.isLoggedIn = false;
+      
+    },
+  },
+  persist: true, // Ensure state persistence across sessions
 });

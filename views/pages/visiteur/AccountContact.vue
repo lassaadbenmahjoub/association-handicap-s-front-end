@@ -1,45 +1,96 @@
-
 <script setup>
 import { ref } from 'vue'
+import axios from "~/plugins/axios";
 
-const associationInfo = ref({
-  quiSommesNous: `Nous sommes l'Association de Culture et de Loisir pour les Aveugles de Sfax, une organisation dédiée à la promotion des activités culturelles et de loisirs pour les personnes aveugles.`,
-  notreVision: `Notre vision est de créer une société inclusive où les personnes aveugles ont accès à toutes les opportunités culturelles et récréatives.`,
-  notreMessage: `Nous croyons en l'importance de l'accessibilité et de l'inclusion pour tous, et nous travaillons pour éliminer les barrières auxquelles les personnes aveugles sont confrontées.`,
-  nosObjectifs: `Nos objectifs incluent la sensibilisation à l'importance de l'accessibilité, la promotion des droits des personnes aveugles, et la création d'activités culturelles et récréatives adaptées.`,
-  valeursDirectrices: `Nos valeurs directrices sont l'inclusion, la dignité, le respect, et l'égalité pour tous.`,
+const $axios = axios().provide.axios;
+
+// Define a ref to hold reception info
+const formData = ref({
+  nom: '',
+  prenom: '',
+  adresse: '',
+  email: '',
+  num_postale: '',
+  message: ''
 })
+
+// Define a function to handle form submission
+const handleSubmit = async () => {
+  const form = new FormData();
+  form.append('nom_fr', formData.value.nom);
+  form.append('nom_ar', formData.value.nom);
+  form.append('nom_en', formData.value.nom);
+  form.append('adresse_fr', formData.value.adresse);
+  form.append('adresse_ar', formData.value.adresse);
+  form.append('adresse_en', formData.value.adresse);
+  form.append('prenom_fr', formData.value.prenom);
+  form.append('prenom_ar', formData.value.prenom);
+  form.append('prenom_en', formData.value.prenom);
+  form.append('message_fr', formData.value.message);
+  form.append('message_ar', formData.value.message);
+  form.append('message_en', formData.value.message);
+  form.append('num_postale', formData.value.num_postale);
+  form.append('email', formData.value.email);
+
+  try {
+    // Replace with the actual endpoint for form submission
+    await $axios.post('/api/receptions', form);
+    alert('Données envoyées avec succès!')
+  } catch (error) {
+    console.error('Échec de l\'envoi des données:', error)
+  }
+}
 </script>
 
 <template>
-  <div class="visiteur-page pa-4">
-    <h1 class="mb-4">Présentation de l'association</h1>
-
-    <section class="mb-4">
-      <h2>Qui sommes-nous ?</h2>
-      <p>{{ associationInfo.quiSommesNous }}</p>
-    </section>
-
-    <section class="mb-4">
-      <h2>Notre vision</h2>
-      <p>{{ associationInfo.notreVision }}</p>
-    </section>
-
-    <section class="mb-4">
-      <h2>Notre message</h2>
-      <p>{{ associationInfo.notreMessage }}</p>
-    </section>
-
-    <section class="mb-4">
-      <h2>Nos objectifs</h2>
-      <p>{{ associationInfo.nosObjectifs }}</p>
-    </section>
-
-    <section class="mb-4">
-      <h2>Valeurs directrices</h2>
-      <p>{{ associationInfo.valeursDirectrices }}</p>
-    </section>
-  </div>
+  <v-container class="pa-4">
+    <v-card>
+      <v-card-title>Information de réception</v-card-title>
+      <v-card-text>
+        <v-form>
+          <v-row>
+            <v-col cols="12" sm="6" class="mb-4">
+              <v-text-field
+                label="Nom"
+                v-model="formData.nom"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" class="mb-4">
+              <v-text-field
+                label="Prénom"
+                v-model="formData.prenom"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" class="mb-4">
+              <v-text-field
+                label="Adresse"
+                v-model="formData.adresse"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" class="mb-4">
+              <v-text-field
+                label="Email"
+                v-model="formData.email"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" class="mb-4">
+              <v-text-field
+                label="Numéro postal"
+                v-model="formData.num_postale"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" class="mb-4">
+              <v-textarea
+                label="Message"
+                v-model="formData.message"
+              ></v-textarea>
+            </v-col>
+          </v-row>
+          <v-btn @click="handleSubmit" color="primary">Valider</v-btn>
+        </v-form>
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>
 
 <style scoped>
@@ -47,21 +98,28 @@ const associationInfo = ref({
   background-color: #f9f9f9;
   padding: 20px;
   border-radius: 8px;
+  max-width: 800px;
+  margin: auto;
 }
 
 .visiteur-page h1 {
   font-size: 2rem;
   color: #333;
-}
-
-.visiteur-page h2 {
-  font-size: 1.5rem;
-  color: #555;
+  text-align: center;
 }
 
 .visiteur-page p {
   font-size: 1rem;
   color: #666;
   line-height: 1.5;
+  margin: 10px 0;
+}
+
+.visiteur-page p strong {
+  color: #333;
+}
+
+.mb-4 {
+  margin-bottom: 16px;
 }
 </style>

@@ -3,11 +3,8 @@ import { useUserStore } from '~~/stores/user'
   import { storeToRefs } from 'pinia';
     const router = useRouter()
     const userStore = useUserStore()
-    const { email,role} = storeToRefs(userStore)
+    const { name,role} = storeToRefs(userStore)
 
-    definePageMeta({
-        middleware: 'is-logged-out'
-    })
 
     onMounted(async () => {
         try {
@@ -18,11 +15,12 @@ import { useUserStore } from '~~/stores/user'
         }
     })
     const logout = async () => {
-        let res = confirm('Are you sure you want to sign out?')
+          let res = confirm('Are you sure you want to sign out?')
         try {
             if (res) {
                 await userStore.logout()
                 localStorage.removeItem('token');
+               
                 router.push('/login')
                 return
             }
@@ -79,7 +77,7 @@ import { useUserStore } from '~~/stores/user'
             </template>
 
             <VListItemTitle class="font-weight-semibold text-wrap" style="white-space: normal; word-break: break-word;">
-              {{ email }} 
+              {{ name }} 
             </VListItemTitle>
             <VListItemTitle style="font-weight: bold; color: green;">
               {{ role }}

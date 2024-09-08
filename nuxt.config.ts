@@ -6,6 +6,7 @@ import autoprefixer from 'autoprefixer'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  pages: true,
   app: {
     head: {
       titleTemplate: 'ACLAS ',
@@ -42,7 +43,7 @@ export default defineNuxtConfig({
     }],
   },
 
-  plugins: ['@/plugins/vuetify/index.js', '@/plugins/iconify/index.js'],
+  plugins: ['@/plugins/vuetify/index.js', '@/plugins/iconify/index.js', '~/plugins/ckeditor.js'],
 
   imports: {
     dirs: ['./@core/utils', './@core/composable/', './plugins/*/composables/*'],

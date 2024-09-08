@@ -1,42 +1,75 @@
 <script setup>
-import { ref } from 'vue';
-import axios from 'axios';
-import { useRouter } from 'vue-router';
-import { useUserStore } from '~/stores/user'; // Adjust path as needed
+import { ref, onMounted } from "vue";
+import { storeToRefs } from "pinia";
+import axios from "axios";
+import { useRouter } from "vue-router";
+import { useUserStore } from "~~/stores/user";
 
 const router = useRouter();
 const userStore = useUserStore();
+const { role, status } = storeToRefs(userStore); // Access role and status from the store
 
 definePageMeta({
-    middleware: 'is-logged-in',
-    layout: 'blank'
+  middleware: "is-logged-in",
+  layout: "blank",
+});
+
+onMounted(async () => {
+  try {
+    await userStore.getUser(); // Fetch the user data on mount
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 const form = ref({
-    email: '',
-    password: '',
-    remember: false,
+  email: "",
+  password: "",
+  remember: false,
 });
 
 const isPasswordVisible = ref(false);
 
 const login = async () => {
-    try {
-        // Perform login
-        await userStore.login(form.value.email, form.value.password);
-        
-        // Get token from localStorage and set axios headers if needed
-        const token = window.localStorage.getItem('token');
-        if (token) {
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-        }
-        console.log("eeeeeeeeeee");
-        // Redirect to home page or any other page
-        await router.push('/dashboard');
-    } catch (error) {
-        console.error(error);
-        alert('Login failed: ' + (error.message || 'An error occurred.'));
+  try {
+    // Perform login
+    await userStore.login(form.value.email, form.value.password);
+
+    // Get token from localStorage and set axios headers if needed
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     }
+    // After login, check the status and role
+    if (userStore.status === "pending") {
+      alert("Votre compte est en attente d'approbation.");
+      return;
+    } else if (userStore.status === "rejected") {
+      alert("Votre compte a été rejeté. Veuillez contacter l'administration.");
+      return;
+    } else if (userStore.status === "approved") {
+      // Redirect based on the user's role
+      if (userStore.role === "super_admin") {
+        await router.push("/super-admin-dashboard");
+      } else if (userStore.role === "administrateur") {
+        await router.push("/admin-dashboard");
+      } else if (userStore.role === "membre") {
+        await router.push("/member-dashboard");
+      } else {
+        alert("Rôle de compte inconnu.");
+        return;
+      }
+    } else {
+      alert("Statut de compte inconnu.");
+      return;
+    }
+  } catch (error) {
+    console.error(error);
+    alert(
+      "Échec de la connexion : " +
+        (error.message || "Une erreur s'est produite.")
+    );
+  }
 };
 </script>
 

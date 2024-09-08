@@ -5,16 +5,17 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
 </script>
 
 <template>
-  <!-- 👉 Dashboards -->
-  <VerticalNavGroup
+  <!-- 👉 Dashboards VerticalNavGroup-->
+  <VerticalNavLink
     :item="{
       title: $t('Nav.Dashboards'),
       badgeContent: '0',
       badgeClass: 'bg-error',
       icon: 'bx-home-smile',
+      to: '/super-admin-dashboard',
     }"
-  >
-  </VerticalNavGroup>
+  />
+
 
   <!-- 👉 Front Pages -->
   <VerticalNavGroup
@@ -40,22 +41,6 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
       to: '/account-settings',
     }"
   />
-
-  <VerticalNavLink
-    :item="{
-      title: $t('Nav.Login'),
-      icon: 'bx-log-in',
-      to: '/login',
-    }"
-  />
-  <VerticalNavLink
-    :item="{
-      title: $t('Nav.Register'),
-      icon: 'bx-user-plus',
-      to: '/register',
-    }"
-  />
-
   <!-- 👉 User Interface -->
   <VerticalNavSectionTitle
     :item="{
@@ -70,13 +55,7 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
     }"
   />
 
-  <VerticalNavLink
-    :item="{
-      title: $t('Nav.Cards'),
-      icon: 'bx-credit-card',
-      to: '/cards',
-    }"
-  />
+ 
 
   <!-- 👉 Forms & Tables -->
   <VerticalNavSectionTitle

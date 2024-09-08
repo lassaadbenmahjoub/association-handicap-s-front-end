@@ -13,6 +13,8 @@
     "css-compile": "sass src/styles:dist/styles"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^43.1.0",
+    "@ckeditor/ckeditor5-vue": "^7.0.0",
     "@floating-ui/dom": "1.6.3",
     "@nuxtjs/i18n": "^8.4.0",
     "@pinia-plugin-persistedstate/nuxt": "^1.1.1",
