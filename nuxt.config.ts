@@ -11,7 +11,6 @@ export default defineNuxtConfig({
     head: {
       titleTemplate: 'ACLAS ',
       title: 'ACLAS',
-
       link: [{
         rel: 'icon',
         type: 'image/x-icon',
@@ -28,6 +27,7 @@ export default defineNuxtConfig({
     '@styles/styles.scss',
     '@/plugins/iconify/icons.css',
     '@layouts/styles/index.scss',
+    'vue-toastification/dist/index.css',  // Add toast styles
   ],
 
   components: {
@@ -43,13 +43,16 @@ export default defineNuxtConfig({
     }],
   },
 
-  plugins: ['@/plugins/vuetify/index.js', '@/plugins/iconify/index.js', '~/plugins/ckeditor.js'],
+  plugins: [
+    '@/plugins/vuetify/index.js',
+    '@/plugins/iconify/index.js',
+    '~/plugins/ckeditor.js',
+    '~/plugins/toast.js',  // Add toast plugin
+  ],
 
   imports: {
     dirs: ['./@core/utils', './@core/composable/', './plugins/*/composables/*'],
   },
-
-  hooks: {},
 
   experimental: {
     typedPages: true,
@@ -71,7 +74,6 @@ export default defineNuxtConfig({
     },
   },
 
-  // ℹ️ Disable source maps until this is resolved: https://github.com/vuetifyjs/vuetify-loader/issues/290
   sourcemap: {
     server: false,
     client: false,
@@ -130,8 +132,15 @@ export default defineNuxtConfig({
     transpile: ['vuetify'],
   },
 
-  modules: ['@vueuse/nuxt', '@nuxtjs/device', '@pinia/nuxt', "@nuxtjs/i18n","@vite-pwa/nuxt","@pinia-plugin-persistedstate/nuxt"],
-  
+  modules: [
+    '@vueuse/nuxt',
+    '@nuxtjs/device',
+    '@pinia/nuxt',
+    "@nuxtjs/i18n",
+    "@vite-pwa/nuxt",
+    "@pinia-plugin-persistedstate/nuxt"
+  ],
+
   i18n: {
     locales: [
       { code: 'en', iso: 'en-US', name: 'English', file: 'en.json' },
@@ -144,7 +153,4 @@ export default defineNuxtConfig({
     lazy: true,
     vueI18n: './i18n/i18n.config.ts'
   },
-
-  // Add devOptions here
- 
 })

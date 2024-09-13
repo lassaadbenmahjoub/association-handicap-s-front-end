@@ -1,7 +1,18 @@
 <script setup>
-import VerticalNavSectionTitle from '@/@layouts/components/VerticalNavSectionTitle.vue'
-import VerticalNavGroup from '@layouts/components/VerticalNavGroup.vue'
-import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
+import VerticalNavSectionTitle from "@/@layouts/components/VerticalNavSectionTitle.vue";
+import VerticalNavGroup from "@layouts/components/VerticalNavGroup.vue";
+import VerticalNavLink from "@layouts/components/VerticalNavLink.vue";
+
+import { computed } from "vue";
+import { useUserStore } from "~/stores/user";
+
+// Récupérer le store utilisateur
+const userStore = useUserStore();
+
+// Calculer si le lien doit être affiché en fonction du rôle
+const showGestionsAdministrateur = computed(
+  () => userStore.role === "super_admin"
+);
 </script>
 
 <template>
@@ -16,7 +27,6 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
     }"
   />
 
-
   <!-- 👉 Front Pages -->
   <VerticalNavGroup
     :item="{
@@ -27,7 +37,16 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
     }"
   >
   </VerticalNavGroup>
-
+  <!-- 👉 Apps & Pages -->
+  <template v-if="showGestionsAdministrateur">
+    <VerticalNavLink
+      :item="{
+        title: $t('Nav.GestionsAdministrateur'),
+        icon: 'bx-user',
+        to: '/GestionsAdministrateur',
+      }"
+    />
+  </template>
   <!-- 👉 Apps & Pages -->
   <VerticalNavSectionTitle
     :item="{
@@ -54,8 +73,6 @@ import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
       to: '/typography',
     }"
   />
-
- 
 
   <!-- 👉 Forms & Tables -->
   <VerticalNavSectionTitle

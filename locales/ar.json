@@ -46,7 +46,8 @@
     "Cards": "البطاقات",
     "FormsTables": "النماذج والجداول",
     "Tables": "الجداول",
-    "Others": "أخرى"
+    "Others": "أخرى",
+    "GestionsAdministrateur": "إدارة المسؤول"
   },
   "tabs": {
     "association": "الجمعية",

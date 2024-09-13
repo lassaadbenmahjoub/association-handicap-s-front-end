@@ -44,7 +44,8 @@
       "Cards": "Cards",
       "FormsTables": "Forms & Tables",
       "Tables": "Tables",
-      "Others": "Others"
+      "Others": "Others",
+      "GestionsAdministrateur": "Gestions Administrateur"
     },
     "tabs": {
         "association": "Association",
