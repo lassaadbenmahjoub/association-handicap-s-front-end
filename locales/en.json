@@ -1,4 +1,8 @@
 {
+    "total_users": "Total Users",
+    "accepted_users": "Accepted Users",
+    "pending_users": "Pending Users",
+    "rejected_users": "Rejected Users",
     "welcome": "Welcome!",
     "message": "This tutorial is brought to you by Lokalise",
     "association_management": "Disabled Association Management 🚀",
@@ -40,6 +44,7 @@
       "Login": "logout",
       "Register": "Register",
       "UserInterface": "User Interface",
+      "TypeAssociation": "Type Association",
       "Typography": "Typography",
       "Cards": "Cards",
       "FormsTables": "Forms & Tables",
@@ -62,8 +67,6 @@
   "menu": {
     "profile": "Profile",
     "settings": "Settings",
-    "pricing": "Pricing",
-    "faq": "FAQ",
     "logout": "Logout"
   }
  

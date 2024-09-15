@@ -42,13 +42,13 @@ const login = async () => {
     }
 
     if (userStore.status === "pending") {
-      toast.info("Votre compte est en attente d'approbation.");  // Use toast for info
+      toast.info("Votre compte est en attente d'approbation."); 
       return;
     } else if (userStore.status === "rejected") {
-      toast.error("Votre compte a été rejeté. Veuillez contacter l'administration.");  // Use toast for error
+      toast.error("Votre compte a été rejeté. Veuillez contacter l'administration.");  
       return;
     } else if (userStore.status === "approved") {
-      toast.success("Connexion réussie !");  // Use toast for success
+     // toast.success("Connexion réussie !"); 
 
       if (userStore.role === "super_admin") {
         await router.push("/super-admin-dashboard");
@@ -57,11 +57,11 @@ const login = async () => {
       } else if (userStore.role === "membre") {
         await router.push("/member-dashboard");
       } else {
-        toast.error("Rôle de compte inconnu.");  // Use toast for unknown role
+        toast.error("Rôle de compte inconnu."); 
         return;
       }
     } else {
-      toast.error("Statut de compte inconnu.");  // Use toast for unknown status
+      toast.error("Statut de compte inconnu.");  
       return;
     }
   } catch (error) {

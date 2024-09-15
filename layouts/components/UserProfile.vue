@@ -87,17 +87,15 @@ import { useUserStore } from '~~/stores/user'
           <VDivider class="my-2" />
 
           <!-- 👉 Profile -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="bx-user"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>{{ $t('menu.profile') }}</VListItemTitle>
-          </VListItem>
+          <router-link to="/account-settings">
+            <VListItem>
+              <template #prepend>
+                <VIcon class="me-2" icon="bx-user" size="22" />
+              </template>
+        
+              <VListItemTitle>{{ $t('menu.profile') }}</VListItemTitle>
+            </VListItem>
+          </router-link>
 
           <!-- 👉 Settings -->
           <VListItem link>
@@ -111,33 +109,6 @@ import { useUserStore } from '~~/stores/user'
 
             <VListItemTitle>{{ $t('menu.settings') }}</VListItemTitle>
           </VListItem>
-
-          <!-- 👉 Pricing -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="bx-dollar"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>{{ $t('menu.pricing') }}</VListItemTitle>
-          </VListItem>
-
-          <!-- 👉 FAQ -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
-                class="me-2"
-                icon="bx-help-circle"
-                size="22"
-              />
-            </template>
-
-            <VListItemTitle>{{ $t('menu.faq') }}</VListItemTitle>
-          </VListItem>
-
           <!-- Divider -->
           <VDivider class="my-2" />
 

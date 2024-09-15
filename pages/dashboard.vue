@@ -3,12 +3,10 @@ import AnalyticsCongratulations from "@/views/dashboard/AnalyticsCongratulations
 import AnalyticsFinanceTabs from "@/views/dashboard/AnalyticsFinanceTab.vue";
 import AnalyticsOrderStatistics from "@/views/dashboard/AnalyticsOrderStatistics.vue";
 import AnalyticsProfitReport from "@/views/dashboard/AnalyticsProfitReport.vue";
-import AnalyticsTransactions from "@/views/dashboard/AnalyticsTransactions.vue";
 
 
 // 👉 Images
 import chart from "@images/cards/chart-success.png";
-import card from "@images/cards/credit-card-primary.png";
 import paypal from "@images/cards/paypal-error.png";
 import wallet from "@images/cards/wallet-info.png";
 definePageMeta({
@@ -66,18 +64,6 @@ definePageMeta({
             }"
           />
         </VCol>
-
-        <!-- 👉 Revenue -->
-        <VCol cols="12" sm="6">
-          <CardStatisticsVertical
-            v-bind="{
-              title: 'Transactions',
-              image: card,
-              stats: '$14,857',
-              change: 28.14,
-            }"
-          />
-        </VCol>
       </VRow>
 
       <VRow>
@@ -96,11 +82,6 @@ definePageMeta({
     <!-- 👉 Tabs chart -->
     <VCol cols="12" md="4" sm="6" order="3">
       <AnalyticsFinanceTabs />
-    </VCol>
-
-    <!-- 👉 Transactions -->
-    <VCol cols="12" md="4" sm="6" order="3">
-      <AnalyticsTransactions />
     </VCol>
   </VRow>
 </template>

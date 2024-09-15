@@ -7,6 +7,7 @@ import autoprefixer from 'autoprefixer'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   pages: true,
+
   app: {
     head: {
       titleTemplate: 'ACLAS ',
@@ -18,6 +19,7 @@ export default defineNuxtConfig({
       }],
     },
   },
+
   devtools: {
     enabled: true,
   },
@@ -48,6 +50,7 @@ export default defineNuxtConfig({
     '@/plugins/iconify/index.js',
     '~/plugins/ckeditor.js',
     '~/plugins/toast.js',  // Add toast plugin
+    '@/plugins/toast-utils'
   ],
 
   imports: {
@@ -153,4 +156,6 @@ export default defineNuxtConfig({
     lazy: true,
     vueI18n: './i18n/i18n.config.ts'
   },
+
+  compatibilityDate: '2024-09-13',
 })

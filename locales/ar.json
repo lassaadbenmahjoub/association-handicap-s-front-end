@@ -1,4 +1,9 @@
 {
+  
+  "total_users": "إجمالي المستخدمين",
+  "accepted_users": "المستخدمون المقبولون",
+  "pending_users": "المستخدمون في الانتظار",
+  "rejected_users": "المستخدمون المرفوضون",
   "welcome": "أهلاً وسهلاً!",
   "message": "يُقدَّم لك هذا الدليل من خلال ",
   "association_management": "إدارة الجمعيات للأشخاص ذوي الإعاقة ",
@@ -47,7 +52,9 @@
     "FormsTables": "النماذج والجداول",
     "Tables": "الجداول",
     "Others": "أخرى",
-    "GestionsAdministrateur": "إدارة المسؤول"
+    "GestionsAdministrateur": "إدارة المسؤول",
+    "Gestions Association": "إدارة جمعية",
+    "TypeAssociation": " نوع جمعية"
   },
   "tabs": {
     "association": "الجمعية",
@@ -64,8 +71,6 @@
   "menu": {
     "profile": "الملف الشخصي",
     "settings": "الإعدادات",
-    "pricing": "الأسعار",
-    "faq": "الأسئلة الشائعة",
     "logout": "تسجيل الخروج"
   }
 }

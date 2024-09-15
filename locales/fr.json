@@ -1,4 +1,8 @@
 {
+  "total_users": "Nombre total d'utilisateurs",
+  "accepted_users": "Utilisateurs acceptés",
+  "pending_users": "Utilisateurs en attente",
+  "rejected_users": "Utilisateurs rejetés",
   "welcome": "Bienvenue!",
   "message": "Ce tutoriel vous est proposé par Lokalise",
   "association_management": "Gestion des associations pour handicapés 🚀",
@@ -38,6 +42,8 @@
     "AppsPages": "Applications & Pages",
     "AccountSettings": "Paramètres du compte",
     "GestionsAdministrateur": "Gestions Administrateur",
+    "GestionsAssociation": "Gestions Association",
+    "TypeAssociation": "Type Association",
     "UserInterface": "Interface utilisateur",
     "Typography": " Présentation Association",
     "FormsTables": "Formulaires & Tableaux",
@@ -60,8 +66,6 @@
   "menu": {
     "profile": "Profil",
     "settings": "Paramètres",
-    "pricing": "Tarification",
-    "faq": "FAQ",
     "logout": "Déconnexion"
   }
   

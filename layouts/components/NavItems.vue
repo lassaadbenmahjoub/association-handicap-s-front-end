@@ -47,6 +47,23 @@ const showGestionsAdministrateur = computed(
       }"
     />
   </template>
+
+ 
+    <VerticalNavLink
+      :item="{
+        title: $t('Nav.GestionsAssociation'),
+        icon: 'bx-user',
+        to: '/GestionsAssociation',
+      }"
+    />
+    <VerticalNavLink
+    :item="{
+      title: $t('Nav.TypeAssociation'),
+      icon: 'bx-user',
+      to: '/TypeAssociation',
+    }"
+  />
+
   <!-- 👉 Apps & Pages -->
   <VerticalNavSectionTitle
     :item="{
