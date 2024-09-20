@@ -1,8 +1,8 @@
-import svgLoader from 'vite-svg-loader'
-import vuetify from 'vite-plugin-vuetify'
+import autoprefixer from 'autoprefixer'
 import { fileURLToPath } from 'node:url'
 import tailwindcss from 'tailwindcss'
-import autoprefixer from 'autoprefixer'
+import vuetify from 'vite-plugin-vuetify'
+import svgLoader from 'vite-svg-loader'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -50,7 +50,8 @@ export default defineNuxtConfig({
     '@/plugins/iconify/index.js',
     '~/plugins/ckeditor.js',
     '~/plugins/toast.js',  // Add toast plugin
-    '@/plugins/toast-utils'
+    '@/plugins/toast-utils',
+     '~/plugins/primevue.js'
   ],
 
   imports: {
@@ -141,7 +142,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     "@nuxtjs/i18n",
     "@vite-pwa/nuxt",
-    "@pinia-plugin-persistedstate/nuxt"
+    "@pinia-plugin-persistedstate/nuxt",
+    '@primevue/nuxt-module'
   ],
 
   i18n: {

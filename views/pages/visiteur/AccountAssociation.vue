@@ -8,7 +8,7 @@
     </v-row>
 
     <!-- Filtering Section -->
-    <v-row>
+    <v-row justify="end">
       <v-col cols="12" md="4">
         <v-text-field
           v-model="filter.name"
@@ -19,15 +19,18 @@
       </v-col>
 
       <v-col cols="12" md="4">
-        <select v-model="filter.type_association_id" id="typeAssociation">
-          <option value="">-- Sélectionner --</option>
-          <option v-for="type in typeAssociations" :key="type.id" :value="type.id">
-            {{ type.name }}
-          </option>
-        </select>
+        <Select 
+          v-model="filter.type_association_id" 
+          :options="typeAssociations" 
+          optionLabel="name" 
+          placeholder="Recherche..." 
+          loading-icon="i-heroicons-magnifying-glass-20-solid"
+          :loading="loading" 
+          class="w-full md:w-56"
+        />
       </v-col>
 
-      <v-col cols="12" md="4" class="d-flex align-center">
+      <v-col cols="12" md="4" class="d-flex align-center justify-end">
         <v-btn color="primary" @click="fetchAssociations">Filtrer</v-btn>
         <v-btn color="secondary" class="ml-2" @click="resetFilters">Réinitialiser</v-btn>
       </v-col>
@@ -41,7 +44,7 @@
 
       <!-- Display associations -->
       <v-col v-for="association in associations" :key="association.id" cols="12" md="6">
-        <v-card class="mb-4" @click="selectAssociation(association)">
+        <v-card class="mb-4">
           <v-card-title class="d-flex justify-space-between">
             <span class="font-weight-bold">{{ association.translations[0].name }}</span>
           </v-card-title>
@@ -65,7 +68,7 @@
           <v-divider></v-divider>
 
           <v-card-actions>
-            <v-btn text color="primary">Voir les détails</v-btn>
+            <v-btn text color="primary" @click="openDetailsDialog(association)">Voir les détails</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -76,12 +79,12 @@
       </v-col>
     </v-row>
 
-    <!-- No filter applied message -->
-    <v-row v-else>
-      <v-col cols="12">
-        <p class="text-center">Veuillez appliquer un filtre pour voir les associations.</p>
-      </v-col>
-    </v-row>
+    <!-- Dialog for displaying association details -->
+    <association-details-dialog
+      :association="selectedAssociation"
+      v-model:visible="visible"
+      @close="visible = false"
+    />
 
     <!-- Display contact form if an association is selected -->
     <v-row v-if="selectedAssociation">
@@ -91,6 +94,9 @@
     </v-row>
   </v-container>
 </template>
+
+
+
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
@@ -108,7 +114,7 @@ const typeAssociations = ref([])
 const associations = ref([])
 const selectedAssociation = ref(null)
 const loading = ref(false)
-
+const visible = ref(false);
 const isFilterApplied = computed(() => {
   return filter.value.name !== '' || filter.value.type_association_id !== null
 })
@@ -148,7 +154,10 @@ const resetFilters = () => {
   associations.value = [] // Clear the results
   selectedAssociation.value = null // Clear selection
 }
-
+const openDetailsDialog = (association) => {
+  selectedAssociation.value = association;
+  visible.value = true; // Open the dialog
+};
 const selectAssociation = (association) => {
   selectedAssociation.value = association
 }
