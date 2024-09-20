@@ -1,33 +1,31 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import AccountAssociation from '@/views/pages/visiteur/AccountAssociation.vue'
-import AccountServices from '@/views/pages/visiteur/AccountServices.vue'
 import AccountContact from '@/views/pages/visiteur/AccountContact.vue'
+
+// Router and Route setup
 const router = useRouter()
 const route = useRoute()
-const activeTab = ref(route.params.tab)
+
+// Active Tab setup
+const activeTab = ref('AccountAssociation')
+
 // Method to navigate to the login page
 const goToLogin = () => {
   router.push('/login')
 }
-// tabs
-const tabs = [
-  {
-    title: 'association',
-    icon: 'bx-group',
-    tab: 'AccountAssociation',
-  },
-  {
-    title: 'الخدمات',
-    icon: 'bx-briefcase',
-    tab: 'AccountServices',
-  },
-  {
-    title: 'الإتصال',
-    icon: 'bx-envelope',
-    tab: 'AccountContact',
-  },
-]
+
+
+
+// Ensure activeTab matches route params on mount
+onMounted(() => {
+  if (route.params.tab) {
+    activeTab.value = route.params.tab
+  }
+})
+
+// Define page metadata
 definePageMeta({
   layout: 'custom'
 })
@@ -36,25 +34,10 @@ definePageMeta({
 
 <template>
   <div class="tabs-container">
-    <VTabs
-      v-model="activeTab"
-      show-arrows
-      class="v-tabs-pill centered-tabs" 
-    >
-      <VTab
-        v-for="item in tabs"
-        :key="item.icon"
-        :value="item.tab"
-      >
-        <VIcon
-          size="20"
-          start
-          :icon="item.icon"
-        />
-        {{ item.title }}
-      </VTab>
-    </VTabs>
+   
+    
 
+    <!-- Tab content -->
     <VWindow
       v-model="activeTab"
       class="mt-5 disable-tab-transition"
@@ -63,17 +46,12 @@ definePageMeta({
       <VWindowItem value="AccountAssociation">
         <AccountAssociation />
       </VWindowItem>
-
-      <!-- Services -->
-      <VWindowItem value="AccountServices">
-        <AccountServices />
-      </VWindowItem>
-
       <!-- Contact -->
       <VWindowItem value="AccountContact">
         <AccountContact />
       </VWindowItem>
     </VWindow>
+
     <!-- Bottom Right Button -->
     <div class="bottom-right">
       <VBtn @click="goToLogin" color="primary">
@@ -83,20 +61,24 @@ definePageMeta({
   </div>
 </template>
 
-
-
 <style scoped>
 .tabs-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh; /* Pour centrer verticalement */
+  min-height: 100vh; /* Center vertically */
 }
 
 .centered-tabs {
   display: flex;
   justify-content: center;
-  width: 100%; /* S'assure que le conteneur prend toute la largeur disponible */
+  width: 100%; /* Ensure the tabs container takes full width */
+}
+
+.bottom-right {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
 }
 </style>

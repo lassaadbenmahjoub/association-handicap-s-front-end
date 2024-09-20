@@ -1,125 +1,124 @@
+<template>
+  <v-card>
+    <v-card-title>Contactez l'Association  : {{ association.translations[0].name }}</v-card-title>
+    <v-card-text>
+      <v-form ref="form" v-model="valid">
+        <v-text-field
+          v-model="formData.nom"
+          label="Nom"
+          :rules="[rules.required]"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="formData.prenom"
+          label="Prénom"
+          :rules="[rules.required]"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="formData.adresse"
+          label="Adresse"
+          :rules="[rules.required]"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="formData.email"
+          label="Email"
+          :rules="[rules.required, rules.email]"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="formData.num_postale"
+          label="Numéro postal"
+          :rules="[rules.required]"
+          required
+          type="number"
+        ></v-text-field>
+        <v-textarea
+          v-model="formData.message"
+          label="Message"
+          :rules="[rules.required]"
+          required
+        ></v-textarea>
+        <v-col cols="12">
+          <v-btn :disabled="!valid" color="primary" @click="submitForm">
+            Submit
+          </v-btn>
+        </v-col>
+      </v-form>
+    </v-card-text>
+  </v-card>
+</template>
+
 <script setup>
-import { ref } from 'vue'
-import axios from "~/plugins/axios";
+import { ref, reactive } from 'vue';
+import axios from '~/plugins/axios';
+import { useToast } from 'vue-toastification';
 
-const $axios = axios().provide.axios;
-
-// Define a ref to hold reception info
-const formData = ref({
+const toast = useToast();
+const formData = reactive({
   nom: '',
   prenom: '',
   adresse: '',
   email: '',
   num_postale: '',
   message: ''
-})
+});
+const valid = ref(false);
 
-// Define a function to handle form submission
-const handleSubmit = async () => {
-  const form = new FormData();
-  form.append('nom_fr', formData.value.nom);
-  form.append('nom_ar', formData.value.nom);
-  form.append('nom_en', formData.value.nom);
-  form.append('adresse_fr', formData.value.adresse);
-  form.append('adresse_ar', formData.value.adresse);
-  form.append('adresse_en', formData.value.adresse);
-  form.append('prenom_fr', formData.value.prenom);
-  form.append('prenom_ar', formData.value.prenom);
-  form.append('prenom_en', formData.value.prenom);
-  form.append('message_fr', formData.value.message);
-  form.append('message_ar', formData.value.message);
-  form.append('message_en', formData.value.message);
-  form.append('num_postale', formData.value.num_postale);
-  form.append('email', formData.value.email);
-
-  try {
-    // Replace with the actual endpoint for form submission
-    await $axios.post('/api/receptions', form);
-    alert('Données envoyées avec succès!')
-  } catch (error) {
-    console.error('Échec de l\'envoi des données:', error)
+const rules = {
+  required: value => !!value || 'Required.',
+  email: value => {
+    const pattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    return pattern.test(value) || 'Invalid e-mail.';
   }
-}
+};
+
+const props = defineProps({
+  association: Object
+});
+
+const submitForm = async () => {
+  if (valid.value) {
+    const payload = {
+      association_id: props.association.id,
+      num_postale: formData.num_postale,
+      email: formData.email,
+      adresse_fr: formData.adresse,
+      adresse_en: formData.adresse,
+      adresse_ar: formData.adresse,
+      nom_fr: formData.nom,
+      nom_en: formData.nom,
+      nom_ar: formData.nom,
+      message_fr: formData.message,
+      message_en: formData.message,
+      message_ar: formData.message,
+    };
+
+    try {
+      const response = await axios().provide.axios.post('/api/receptions', payload);
+      toast.success('Message sent successfully!');
+      resetForm();
+    } catch (error) {
+      if (error.response && error.response.data.errors) {
+        const errors = error.response.data.errors;
+        if (errors.email) {
+          toast.error(errors.email[0]);
+        }
+      } else {
+        toast.error('An error occurred while sending the message.');
+      }
+    }
+  }
+};
+
+const resetForm = () => {
+  formData.nom = '';
+  formData.prenom = '';
+  formData.adresse = '';
+  formData.email = '';
+  formData.num_postale = '';
+  formData.message = '';
+};
+
 </script>
-
-<template>
-  <v-container class="pa-4">
-    <v-card>
-      <v-card-title>Information de réception</v-card-title>
-      <v-card-text>
-        <v-form>
-          <v-row>
-            <v-col cols="12" sm="6" class="mb-4">
-              <v-text-field
-                label="Nom"
-                v-model="formData.nom"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" class="mb-4">
-              <v-text-field
-                label="Prénom"
-                v-model="formData.prenom"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" class="mb-4">
-              <v-text-field
-                label="Adresse"
-                v-model="formData.adresse"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" class="mb-4">
-              <v-text-field
-                label="Email"
-                v-model="formData.email"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" class="mb-4">
-              <v-text-field
-                label="Numéro postal"
-                v-model="formData.num_postale"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" class="mb-4">
-              <v-textarea
-                label="Message"
-                v-model="formData.message"
-              ></v-textarea>
-            </v-col>
-          </v-row>
-          <v-btn @click="handleSubmit" color="primary">Valider</v-btn>
-        </v-form>
-      </v-card-text>
-    </v-card>
-  </v-container>
-</template>
-
-<style scoped>
-.visiteur-page {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 800px;
-  margin: auto;
-}
-
-.visiteur-page h1 {
-  font-size: 2rem;
-  color: #333;
-  text-align: center;
-}
-
-.visiteur-page p {
-  font-size: 1rem;
-  color: #666;
-  line-height: 1.5;
-  margin: 10px 0;
-}
-
-.visiteur-page p strong {
-  color: #333;
-}
-
-.mb-4 {
-  margin-bottom: 16px;
-}
-</style>
