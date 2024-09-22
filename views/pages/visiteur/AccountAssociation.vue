@@ -46,16 +46,17 @@
       <v-col v-for="association in associations" :key="association.id" cols="12" md="6">
         <v-card class="mb-4">
           <v-card-title class="d-flex justify-space-between">
-            <span class="font-weight-bold">{{ association.translations[0].name }}</span>
+            <span class="font-weight-bold">Nom De Association :</span> 
+            <span>{{ association.translations[0].name }}</span> 
           </v-card-title>
           <v-card-subtitle>
-            <v-icon left>mdi-home</v-icon> {{ association.translations[0].adresse || 'Non spécifiée' }}
+            <v-icon left>mdi-home</v-icon> Adresse De Association: {{ association.translations[0].adresse || 'Non spécifiée' }}
           </v-card-subtitle>
           <v-card-subtitle>
-            <v-icon left>mdi-phone</v-icon> {{ association.phone || 'Non spécifié' }}
+            <v-icon left>mdi-phone</v-icon> Numéro Télephone: {{ association.phone || 'Non spécifié' }}
           </v-card-subtitle>
           <v-card-subtitle>
-            <v-icon left>mdi-email</v-icon> {{ association.email || 'Non spécifié' }}
+            <v-icon left>mdi-email</v-icon> Adresse Email: {{ association.email || 'Non spécifié' }}
           </v-card-subtitle>
 
           <v-divider></v-divider>
@@ -68,7 +69,7 @@
           <v-divider></v-divider>
 
           <v-card-actions>
-            <v-btn text color="primary" @click="openDetailsDialog(association)">Voir les détails</v-btn>
+            <v-btn text color="primary" @click="openContactDialog(association)">Contacter l'association</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -79,21 +80,15 @@
       </v-col>
     </v-row>
 
-    <!-- Dialog for displaying association details -->
-    <association-details-dialog
+    <!-- Dialog for contacting association -->
+    <account-contact 
       :association="selectedAssociation"
       v-model:visible="visible"
       @close="visible = false"
     />
-
-    <!-- Display contact form if an association is selected -->
-    <v-row v-if="selectedAssociation">
-      <v-col cols="12">
-        <account-contact :association="selectedAssociation"></account-contact>
-      </v-col>
-    </v-row>
   </v-container>
 </template>
+
 
 
 
@@ -154,12 +149,10 @@ const resetFilters = () => {
   associations.value = [] // Clear the results
   selectedAssociation.value = null // Clear selection
 }
-const openDetailsDialog = (association) => {
+
+const openContactDialog = (association) => {
   selectedAssociation.value = association;
-  visible.value = true; // Open the dialog
-};
-const selectAssociation = (association) => {
-  selectedAssociation.value = association
+  visible.value = true; // Open the contact dialog
 }
 
 // Fetch types of associations on component mount

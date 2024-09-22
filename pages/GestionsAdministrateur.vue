@@ -19,6 +19,7 @@ const fetchAdministrators = async () => {
 
     const response = await axios.get('/api/administrators');
     administrators.value = response.data.administrators;
+    console.log("tttttttttttttttt",administrators.value)
 
   } catch (error) {
     console.error('Error fetching administrators:', error);
