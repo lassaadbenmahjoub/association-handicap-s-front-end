@@ -1,5 +1,4 @@
 {
-  
   "total_users": "إجمالي المستخدمين",
   "accepted_users": "المستخدمون المقبولون",
   "pending_users": "المستخدمون في الانتظار",
@@ -46,14 +45,8 @@
     "AccountSettings": "إعدادات الحساب",
     "Login": "تسجيل الخروج",
     "Register": "تسجيل",
-    "UserInterface": "واجهة المستخدم",
-    "Typography": "الطباعة",
-    "Cards": "البطاقات",
-    "FormsTables": "النماذج والجداول",
-    "Tables": "الجداول",
-    "Others": "أخرى",
     "GestionsAdministrateur": "إدارة المسؤول",
-    "Gestions Association": "إدارة جمعية",
+    "GestionsAssociation": "إدارة جمعية",
     "TypeAssociation": " نوع جمعية"
   },
   "tabs": {
@@ -72,5 +65,26 @@
     "profile": "الملف الشخصي",
     "settings": "الإعدادات",
     "logout": "تسجيل الخروج"
+  },
+  "admin": {
+    "manageAdministrators": "إدارة المسؤولين",
+    "name": "الاسم",
+    "telephone": "الهاتف",
+    "status": "الحالة",
+    "role": "الدور",
+    "actions": "إجراءات",
+    "accept": "قبول",
+    "reject": "رفض",
+    "confirmAction": "تأكيد الإجراء",
+    "confirmText": "هل أنت متأكد أنك تريد",
+    "thisUser": "هذا المستخدم",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد"
+  },
+  "messages": {
+    "confirmSignOut":" هل أنت متأكد أنك تريد تسجيل الخروج؟"
+  },
+  "dash": {
+    "bienvenue": "مرحباً !"
   }
 }

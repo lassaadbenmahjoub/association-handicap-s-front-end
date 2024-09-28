@@ -26,7 +26,7 @@ const usersCountRejected = ref(0);
 // Fonction pour récupérer le nombre d'utilisateurs depuis l'API
 const fetchUsersCount = async () => {
   try {
-    const response = await axios.get("/api/users");
+    const response = await axios.get("/api/users/membre");
     usersCount.value = response.data.total;
     usersCountAccepted.value = response.data.accepted;
     usersCountPending.value = response.data.pending;

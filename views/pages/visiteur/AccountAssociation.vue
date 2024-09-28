@@ -18,17 +18,19 @@
         ></v-text-field>
       </v-col>
 
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="4" v-if="typeAssociations && typeAssociations.length">
         <Select 
-          v-model="filter.type_association_id" 
-          :options="typeAssociations" 
-          optionLabel="name" 
-          placeholder="Recherche..." 
-          loading-icon="i-heroicons-magnifying-glass-20-solid"
-          :loading="loading" 
-          class="w-full md:w-56"
-        />
+        v-model="filter.type_association_id" 
+        :options="typeAssociations || []" 
+        optionLabel="name" 
+        placeholder="Sélectionnez un type d'association" 
+        checkmark 
+        :highlightOnSelect="false" 
+        class="w-full md:w-56"
+      />
+      
       </v-col>
+      
 
       <v-col cols="12" md="4" class="d-flex align-center justify-end">
         <v-btn color="primary" @click="fetchAssociations">Filtrer</v-btn>
@@ -135,6 +137,7 @@ const fetchAssociations = async () => {
 
     const response = await $axios.get('/api/associations', { params })
     associations.value = response.data.associations
+    console.log("mmmmmm",associations.value);
     selectedAssociation.value = null // Clear selection when fetching new associations
   } catch (error) {
     console.error('Erreur lors de la récupération des associations:', error)

@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter } from "vue-router";
 import { useUserStore } from "~~/stores/user";
 import { useToast } from "vue-toastification";  // Import the toast
+import GlobalMenu from '~/components/GlobalMenu.vue'
 
 const toast = useToast();  // Create the toast instance
 const router = useRouter();
@@ -76,6 +77,8 @@ const login = async () => {
 
 
 <template>
+  <div>
+    <GlobalMenu />
   <div class="auth-wrapper d-flex align-center justify-center pa-4">
     <div class="position-relative my-sm-8">
       <VCard
@@ -158,6 +161,7 @@ const login = async () => {
       </VCard>
     </div>
   </div>
+</div>
 </template>
 
 <style lang="scss">

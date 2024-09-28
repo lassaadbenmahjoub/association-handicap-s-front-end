@@ -19,8 +19,6 @@ const fetchAdministrators = async () => {
 
     const response = await axios.get('/api/administrators');
     administrators.value = response.data.administrators;
-    console.log("tttttttttttttttt",administrators.value)
-
   } catch (error) {
     console.error('Error fetching administrators:', error);
   } finally {
@@ -67,7 +65,7 @@ onMounted(fetchAdministrators);
 <template>
   <VCard class="pa-4 my-card">
     <VCardText>
-      <h3 class="mb-4 text-center">Manage Administrators</h3>
+      <h3 class="mb-4 text-center">{{ $t('admin.manageAdministrators') }}</h3>
       <VDataTable 
         :items="administrators" 
         :loading="loading" 
@@ -90,7 +88,7 @@ onMounted(fetchAdministrators);
               @click="showConfirmationDialog(item.id, 'approve')"
               class="mx-2"
             >
-              Accept
+            {{ $t('admin.confirm') }}
             </VBtn>
             <VBtn 
               color="error" 
@@ -98,29 +96,29 @@ onMounted(fetchAdministrators);
               :disabled="isButtonDisabled"
               @click="showConfirmationDialog(item.id, 'reject')"
             >
-              Reject
+            {{ $t('admin.cancel') }}
             </VBtn>
           </div>
         </template>
       </VDataTable>
     </VCardText>
     
-    <!-- Confirmation Dialog -->
     <VDialog v-model="dialog" max-width="400">
       <VCard>
-        <VCardTitle class="headline">Confirm Action</VCardTitle>
+        <VCardTitle class="headline">{{ $t('admin.confirmAction') }}</VCardTitle>
         <VCardText>
-          Are you sure you want to 
-          <span class="font-weight-bold">{{ selectedAction === 'approve' ? 'approve' : 'reject' }}</span>
-          this user?
+          {{ $t('admin.confirmText') }} 
+          <span class="font-weight-bold">{{ selectedAction === 'approve' ? $t('admin.accept') : $t('admin.reject') }}</span>
+          {{ $t('admin.thisUser') }}?
         </VCardText>
         <VCardActions>
           <VSpacer />
-          <VBtn color="blue darken-1" text @click="dialog = false">Cancel</VBtn>
-          <VBtn color="green darken-1" text @click="confirmAction">Confirm</VBtn>
+          <VBtn color="blue darken-1" text @click="dialog = false">{{ $t('admin.cancel') }}</VBtn> 
+          <VBtn color="green darken-1" text @click="confirmAction">{{ $t('admin.confirm') }}</VBtn> 
         </VCardActions>
       </VCard>
     </VDialog>
+    
     
   </VCard>
 </template>

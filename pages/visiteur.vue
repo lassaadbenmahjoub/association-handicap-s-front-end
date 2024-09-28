@@ -1,84 +1,33 @@
+<template>
+  <CustomLayout>
+    <!-- Custom header slot -->
+    <template #header>
+      <Header />
+    </template>
+
+    <!-- Main content of the page -->
+    <div>
+      <h1>Bienvenue sur notre association</h1>
+      <p>Nous offrons des services et des activités culturelles et de loisirs pour les aveugles.</p>
+    </div>
+
+    <!-- Custom footer slot -->
+    <template #footer>
+      <Footer />
+    </template>
+  </CustomLayout>
+</template>
+
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import AccountAssociation from '@/views/pages/visiteur/AccountAssociation.vue'
-import AccountContact from '@/views/pages/visiteur/AccountContact.vue'
-
-// Router and Route setup
-const router = useRouter()
-const route = useRoute()
-
-// Active Tab setup
-const activeTab = ref('AccountAssociation')
-
-// Method to navigate to the login page
-const goToLogin = () => {
-  router.push('/login')
-}
-
-
-
-// Ensure activeTab matches route params on mount
-onMounted(() => {
-  if (route.params.tab) {
-    activeTab.value = route.params.tab
-  }
-})
-
-// Define page metadata
+// Import your layout and components
+import CustomLayout from '~/layouts/visiteur.vue';
+import Header from '~/components/Header.vue';
+import Footer from '~/components/Footer.vue';
 definePageMeta({
   layout: 'custom'
 })
-
 </script>
 
-<template>
-  <div class="tabs-container">
-   
-    
-
-    <!-- Tab content -->
-    <VWindow
-      v-model="activeTab"
-      class="mt-5 disable-tab-transition"
-    >
-      <!-- Association -->
-      <VWindowItem value="AccountAssociation">
-        <AccountAssociation />
-      </VWindowItem>
-      <!-- Contact -->
-      <VWindowItem value="AccountContact">
-        <AccountContact />
-      </VWindowItem>
-    </VWindow>
-
-    <!-- Bottom Right Button -->
-    <div class="bottom-right">
-      <VBtn @click="goToLogin" color="primary">
-        {{ $t('buttons.returnToLogin') }}
-      </VBtn>
-    </div>
-  </div>
-</template>
-
 <style scoped>
-.tabs-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh; /* Center vertically */
-}
-
-.centered-tabs {
-  display: flex;
-  justify-content: center;
-  width: 100%; /* Ensure the tabs container takes full width */
-}
-
-.bottom-right {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-}
+/* Ajoutez votre style ici */
 </style>

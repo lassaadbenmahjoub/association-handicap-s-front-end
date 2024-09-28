@@ -5,7 +5,7 @@
   "rejected_users": "Utilisateurs rejetés",
   "welcome": "Bienvenue!",
   "message": "Ce tutoriel vous est proposé par Lokalise",
-  "association_management": "Gestion des associations pour handicapés 🚀",
+  "association_management": "Gestion des associations pour handicapés",
   "name": "Nom",
   "email": "Email",
   "password": "Mot de passe",
@@ -39,16 +39,10 @@
   "Nav": {
     "Dashboards": "Tableaux de bord",
     "FrontPages": "Pages d'accueil",
-    "AppsPages": "Applications & Pages",
     "AccountSettings": "Paramètres du compte",
     "GestionsAdministrateur": "Gestions Administrateur",
     "GestionsAssociation": "Gestions Association",
-    "TypeAssociation": "Type Association",
-    "UserInterface": "Interface utilisateur",
-    "Typography": " Présentation Association",
-    "FormsTables": "Formulaires & Tableaux",
-    "Tables": "Tableaux",
-    "Others": "Autres"
+    "TypeAssociation": "Type Association"
   },
   
     "tabs": {
@@ -67,6 +61,26 @@
     "profile": "Profil",
     "settings": "Paramètres",
     "logout": "Déconnexion"
+  },
+  "admin": {
+    "manageAdministrators": "Gérer les Administrateurs",
+    "name": "Nom",
+    "telephone": "Téléphone",
+    "status": "Statut",
+    "role": "Rôle",
+    "actions": "Actions",
+    "accept": "Accepter",
+    "reject": "Rejeter",
+    "confirmAction": "Confirmer l'action",
+    "confirmText": "Êtes-vous sûr de vouloir",
+    "thisUser": "cet utilisateur",
+    "cancel": "Annuler",
+    "confirm": "Confirmer"
+  },
+  "messages": {
+    "confirmSignOut": "Êtes-vous sûr de vouloir vous déconnecter ?"
+  },
+  "dash": {
+    "bienvenue": "bienvenue !"
   }
-  
 }

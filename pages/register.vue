@@ -4,7 +4,10 @@ import authV1TopShape from "@images/svg/auth-v1-top-shape.svg?url";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from '~~/stores/user';
+import { useToast } from "vue-toastification";  
+import waitImage from '@images/wait.jpg'; 
 
+const toast = useToast();
 const router = useRouter();
 const userStore = useUserStore();
 const form = ref({
@@ -14,13 +17,14 @@ const form = ref({
   password_confirmation: "",
   nom_association: "",
   type_organisation: "",
-  adresse: "", // Ensure this is included if required
+  adresse: "",
   telephone: "",
   role: "",
   privacyPolicies: false,
 });
 const isPasswordVisible = ref(false);
 const errors = ref(null);
+const loading = ref(false); // Step 1: Add loading state
 
 const register = async () => {
   errors.value = null;
@@ -30,6 +34,9 @@ const register = async () => {
     return;
   }
 
+  loading.value = true; // Set loading to true when registration starts
+  console.log("ttgggggg",loading.value)
+
   try {
     await userStore.register(
       form.value.name,
@@ -38,22 +45,27 @@ const register = async () => {
       form.value.password_confirmation,
       form.value.nom_association,
       form.value.type_organisation,
-      form.value.adresse, // Ensure this matches the backend field names
+      form.value.adresse,
       form.value.telephone,
       form.value.role
     );
     router.push('/login');
   } catch (error) {
-    console.error(error);
-    errors.value = error.response?.data?.errors || 'Une erreur est survenue.';
+    // Check if the error response is available and handle accordingly
+    if (error.response) {
+      const errorMessage = error.response.data.error || 'Une erreur est survenue.'; // Extract the error message
+      console.log("tttt", errorMessage);
+      toast.error(errorMessage); // Display the error message as a toast
+    } else {
+      toast.error('Une erreur est survenue.'); // Fallback error message
+    }
+  } finally {
+    loading.value = false; // Set loading to false after registration completes
   }
 };
 
 definePageMeta({ layout: "blank" });
 </script>
-
-
-
 
 <template>
   <div class="auth-wrapper d-flex align-center justify-center pa-4">
@@ -93,6 +105,14 @@ definePageMeta({ layout: "blank" });
         </VCardText>
 
         <VCardText>
+          <div v-if="loading" class="text-center my-4">
+            <VImg
+              :src="waitImage"  
+              alt="Loading"
+              width="50" 
+              height="50" 
+            />
+          </div>
           <VForm @submit.prevent="register">
             <VRow>
               <VCol cols="12">

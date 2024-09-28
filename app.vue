@@ -10,7 +10,7 @@ if (isMobile)
   <VApp>
       
       <NuxtLayout>
-        <LanguageSwitcher />
+      <LanguageSwitcher />
       <NuxtPage />
     </NuxtLayout>
     
