@@ -47,7 +47,8 @@
     "Register": "تسجيل",
     "GestionsAdministrateur": "إدارة المسؤول",
     "GestionsAssociation": "إدارة جمعية",
-    "TypeAssociation": " نوع جمعية"
+    "TypeAssociation": "نوع جمعية",
+    "AddMembre":"إضافة عضو"
   },
   "tabs": {
     "association": "الجمعية",

@@ -1,5 +1,4 @@
 <script setup>
-import VerticalNavSectionTitle from "@/@layouts/components/VerticalNavSectionTitle.vue";
 import VerticalNavLink from "@layouts/components/VerticalNavLink.vue";
 
 import { computed } from "vue";
@@ -54,7 +53,13 @@ const showGestionsAssociation = computed(
       to: '/TypeAssociation',
     }"
   />
-
+  <VerticalNavLink
+  :item="{
+    title: $t('Nav.AddMembre'),
+    icon: 'bx-user',
+    to: '/MemberAssociation',
+  }"
+/>
 
   <VerticalNavLink
     :item="{

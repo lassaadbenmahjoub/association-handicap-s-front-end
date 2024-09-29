@@ -73,6 +73,8 @@ export const useUserStore = defineStore("user", {
 
         const response = await $axios.get("/api/user");
         const user = response.data.user;
+        this.user = response.data.user; // Stockez l'utilisateur
+        this.userId = response.data.user.id; // Assurez-vous que vous récupérez l'ID ici
 
         if (!user) {
           throw new Error("User data is missing.");

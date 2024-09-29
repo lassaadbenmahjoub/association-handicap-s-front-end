@@ -42,7 +42,8 @@
     "AccountSettings": "Paramètres du compte",
     "GestionsAdministrateur": "Gestions Administrateur",
     "GestionsAssociation": "Gestions Association",
-    "TypeAssociation": "Type Association"
+    "TypeAssociation": "Type Association",
+    "AddMembre":"Ajouter un membre"
   },
   
     "tabs": {

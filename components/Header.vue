@@ -7,16 +7,10 @@
       <router-link to="/login" class="login-button">
         <span class="icon">🔑</span> Connexion
       </router-link>
+      <router-link to="/visiteur1" class="login-button">
+        <span class="icon">🔍</span> Chercher Associations
+      </router-link>
     </nav>
-    <!-- <nav class="nav-menu">
-      <ul>
-        <li><a href="/">Accueil</a></li>
-        <li><a href="/activites">Activités</a></li>
-        <li><a href="/services">Services</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/about">À propos</a></li>
-      </ul>
-    </nav> -->
   </header>
 </template>
 

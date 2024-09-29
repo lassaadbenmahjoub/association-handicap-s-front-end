@@ -43,6 +43,7 @@
       "Login": "logout",
       "Register": "Register",
       "TypeAssociation": "Type Association",
+      "AddMembre":"Add Membre",
       "Others": "Others",
       "GestionsAdministrateur": "Gestions Administrateur"
     },

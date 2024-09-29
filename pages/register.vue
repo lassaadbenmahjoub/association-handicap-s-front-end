@@ -5,8 +5,10 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from '~~/stores/user';
 import { useToast } from "vue-toastification";  
-import waitImage from '@images/wait.jpg'; 
+import waitImage from '@images/soon.png'; 
 
+const route = useRoute();
+const associationName  = ref(route.query.associationName ); 
 const toast = useToast();
 const router = useRouter();
 const userStore = useUserStore();
@@ -25,17 +27,18 @@ const form = ref({
 const isPasswordVisible = ref(false);
 const errors = ref(null);
 const loading = ref(false); // Step 1: Add loading state
-
+const isAssociationNameVisible = ref(true);
+const isRoleDisabled = ref(true);
 const register = async () => {
   errors.value = null;
 
   if (!form.value.privacyPolicies) {
-    alert("Vous devez accepter la politique de confidentialité et les conditions.");
+    toast.error("Vous devez accepter la politique de confidentialité et les conditions."); // Remplacement de alert() par toast
     return;
   }
 
   loading.value = true; // Set loading to true when registration starts
-  console.log("ttgggggg",loading.value)
+
 
   try {
     await userStore.register(
@@ -50,20 +53,25 @@ const register = async () => {
       form.value.role
     );
     router.push('/login');
-  } catch (error) {
-    // Check if the error response is available and handle accordingly
-    if (error.response) {
-      const errorMessage = error.response.data.error || 'Une erreur est survenue.'; // Extract the error message
-      console.log("tttt", errorMessage);
-      toast.error(errorMessage); // Display the error message as a toast
-    } else {
-      toast.error('Une erreur est survenue.'); // Fallback error message
-    }
   } finally {
     loading.value = false; // Set loading to false after registration completes
   }
 };
 
+// Check the query parameter on mount
+onMounted(() => {
+  isAssociationNameVisible.value = route.query.showAssociationField !== "false";
+  if (route.query.associationName) {
+    form.value.nom_association = route.query.associationName; // Affecte la valeur ici
+  }
+   // Vérifiez si le paramètre de rôle est défini dans la requête
+   if (route.query.role === "membre") {
+    form.value.role = "membre";
+  } else {
+    form.value.role = ""; // ou un autre rôle par défaut si nécessaire
+  }
+  isRoleDisabled.value = route.query.showAssociationField === "false"; 
+});
 definePageMeta({ layout: "blank" });
 </script>
 
@@ -105,14 +113,14 @@ definePageMeta({ layout: "blank" });
         </VCardText>
 
         <VCardText>
-          <div v-if="loading" class="text-center my-4">
+          <div v-if="loading" class="loading-container">
             <VImg
               :src="waitImage"  
               alt="Loading"
-              width="50" 
-              height="50" 
+              class="loading-image"
             />
           </div>
+          
           <VForm @submit.prevent="register">
             <VRow>
               <VCol cols="12">
@@ -155,6 +163,7 @@ definePageMeta({ layout: "blank" });
 
               <VCol cols="12">
                 <VTextField
+                  v-if="isAssociationNameVisible"
                   v-model="form.nom_association"
                   :label="$t('association_name')"
                   :placeholder="$t('association_name_placeholder')"
@@ -185,6 +194,7 @@ definePageMeta({ layout: "blank" });
                   :label="$t('role')"
                   :items="['administrateur', 'membre']"
                   :placeholder="$t('select_role_placeholder')"
+                  :disabled="isRoleDisabled"
                 />
               </VCol>
 
@@ -220,14 +230,33 @@ definePageMeta({ layout: "blank" });
     </div>
   </div>
 </template>
-
 <style lang="scss">
 @use "@core/scss/template/pages/page-auth.scss";
+
 .auth-wrapper {
   background-image: url("~/assets/images/profile.jpg");
   background-size: cover; /* Adjust to cover the entire element */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Prevent image repetition */
   min-height: 100vh; /* Ensure the wrapper takes full height */
+}
+
+.loading-container {
+  display: flex; /* Utilisez flex pour centrer le contenu */
+  justify-content: center; /* Centre horizontalement */
+  align-items: center; /* Centre verticalement */
+  height: 100vh; /* Prend toute la hauteur de la page */
+  position: absolute; /* Positionnez-le de manière absolue pour le centrer */
+  top: 0; /* Remise à zéro du haut */
+  left: 0; /* Remise à zéro du gauche */
+  right: 0; /* Remise à zéro du droit */
+  bottom: 0; /* Remise à zéro du bas */
+  background-color: rgba(255, 255, 255, 0.7); /* Optionnel : Ajoutez un fond semi-transparent */
+  z-index: 1000; /* S'assurer qu'il est au-dessus des autres éléments */
+}
+
+.loading-image {
+  width: 800px; /* Ajustez la largeur à votre convenance */
+  height: 750px; /* Ajustez la hauteur à votre convenance */
 }
 </style>

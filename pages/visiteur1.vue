@@ -46,10 +46,6 @@ definePageMeta({
       <VWindowItem value="AccountAssociation">
         <AccountAssociation />
       </VWindowItem>
-      <!-- Contact -->
-      <VWindowItem value="AccountContact">
-        <AccountContact />
-      </VWindowItem>
     </VWindow>
 
     <!-- Bottom Right Button -->

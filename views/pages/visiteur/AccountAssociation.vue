@@ -18,7 +18,7 @@
         ></v-text-field>
       </v-col>
 
-      <v-col cols="12" md="4" v-if="typeAssociations && typeAssociations.length">
+      <v-col cols="12" md="4">
         <Select 
         v-model="filter.type_association_id" 
         :options="typeAssociations || []" 
@@ -71,7 +71,10 @@
           <v-divider></v-divider>
 
           <v-card-actions>
-            <v-btn text color="primary" @click="openContactDialog(association)">Contacter l'association</v-btn>
+            <v-btn text color="primary" @click="redirectToRegister(association)">
+              Devenir Membre
+            </v-btn>
+            
           </v-card-actions>
         </v-card>
       </v-col>
@@ -81,13 +84,6 @@
         <p class="text-center">Aucune association trouvée pour ces critères.</p>
       </v-col>
     </v-row>
-
-    <!-- Dialog for contacting association -->
-    <account-contact 
-      :association="selectedAssociation"
-      v-model:visible="visible"
-      @close="visible = false"
-    />
   </v-container>
 </template>
 
@@ -98,10 +94,10 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import axios from '~/plugins/axios'
-import AccountContact from '@/views/pages/visiteur/AccountContact.vue'
+import { useRouter } from 'vue-router'
 
 const $axios = axios().provide.axios
-
+const router = useRouter() // Use Vue Router
 const filter = ref({
   name: '',
   type_association_id: null,
@@ -111,7 +107,6 @@ const typeAssociations = ref([])
 const associations = ref([])
 const selectedAssociation = ref(null)
 const loading = ref(false)
-const visible = ref(false);
 const isFilterApplied = computed(() => {
   return filter.value.name !== '' || filter.value.type_association_id !== null
 })
@@ -153,10 +148,10 @@ const resetFilters = () => {
   selectedAssociation.value = null // Clear selection
 }
 
-const openContactDialog = (association) => {
-  selectedAssociation.value = association;
-  visible.value = true; // Open the contact dialog
-}
+const redirectToRegister = (association) => {
+   const associationName = association.translations[0].name; 
+  router.push({ path: '/register', query: { associationName, showAssociationField: false , role: "membre"  }});
+};
 
 // Fetch types of associations on component mount
 onMounted(fetchTypes)
