@@ -44,7 +44,9 @@
       "Register": "Register",
       "TypeAssociation": "Type Association",
       "AddMembre":"Add Membre",
+      "ListMembre":"Members list",
       "Others": "Others",
+      "EventAssociation":"Association event",
       "GestionsAdministrateur": "Gestions Administrateur"
     },
     "tabs": {

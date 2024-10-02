@@ -4,14 +4,19 @@
       <v-row>
         <!-- Corrected Input for Type Association ID -->
         <v-col cols="12">
-          <label for="typeAssociation">Sélectionner un type d'association :</label>
+          <label for="typeAssociation"
+            >Sélectionner un type d'association :</label
+          >
           <select v-model="formData.type_association_id" id="typeAssociation">
             <option value="">-- Sélectionner --</option>
-            <option v-for="type in typeAssociations" :key="type.id" :value="type.id">
+            <option
+              v-for="type in typeAssociations"
+              :key="type.id"
+              :value="type.id"
+            >
               {{ type.name }}
             </option>
           </select>
-          
         </v-col>
 
         <!-- Other fields unchanged -->
@@ -34,10 +39,7 @@
         </v-col>
 
         <v-col cols="12">
-          <v-text-field
-            v-model="formData.rip"
-            label="RIP"
-          ></v-text-field>
+          <v-text-field v-model="formData.rip" label="RIP"></v-text-field>
         </v-col>
 
         <v-col cols="12">
@@ -96,22 +98,22 @@ export default {
   data() {
     return {
       valid: false,
-      address: '',
-      name: '',
-      description: '',
+      address: "",
+      name: "",
+      description: "",
       formData: {
-        type_association_id: '',
-        phone: '',
-        phone_fax: '',
-        rip: '',
-        email: '',
+        type_association_id: "",
+        phone: "",
+        phone_fax: "",
+        rip: "",
+        email: "",
       },
       rules: {
-        required: value => !!value || 'Required.',
-        email: value => {
+        required: (value) => !!value || "Required.",
+        email: (value) => {
           const pattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-          return pattern.test(value) || 'Invalid e-mail.';
-        }
+          return pattern.test(value) || "Invalid e-mail.";
+        },
       },
       selectedType: null,
       typeAssociations: [], // Stockage des types d'associations
@@ -127,12 +129,15 @@ export default {
   methods: {
     async fetchTypeAssociations() {
       try {
-        const response = await this.$axios.get('/api/type_associations');
+        const response = await this.$axios.get("/api/type_associations");
         if (response.data.success) {
           this.typeAssociations = response.data.type_associations;
         }
       } catch (error) {
-        console.error("Erreur lors de la récupération des types d'associations:", error);
+        console.error(
+          "Erreur lors de la récupération des types d'associations:",
+          error
+        );
       }
     },
     async submitForm() {
@@ -151,12 +156,12 @@ export default {
           name_ar: this.name,
           description_fr: this.description,
           description_en: this.description,
-          description_ar: this.description
+          description_ar: this.description,
         };
 
         try {
-          const response = await this.$axios.post('/api/associations', payload);
-          this.toast.success('Association created successfully!');
+          const response = await this.$axios.post("/api/associations", payload);
+          this.toast.success("Association created successfully!");
           this.resetForm();
         } catch (error) {
           if (error.response && error.response.data.errors) {
@@ -165,29 +170,30 @@ export default {
               this.toast.error(errors.email[0]);
             }
           } else {
-            this.toast.error('An error occurred while creating the association.');
+            this.toast.error(
+              "An error occurred while creating the association."
+            );
           }
         }
       }
     },
     resetForm() {
       this.formData = {
-        type_association_id: '',
-        phone: '',
-        phone_fax: '',
-        rip: '',
-        email: '',
+        type_association_id: "",
+        phone: "",
+        phone_fax: "",
+        rip: "",
+        email: "",
       };
-      this.address = '';
-      this.name = '';
-      this.description = '';
+      this.address = "";
+      this.name = "";
+      this.description = "";
       this.$refs.form.reset();
       this.$refs.form.resetValidation();
-    }
-  }
+    },
+  },
 };
 </script>
-
 
 <style scoped>
 .v-container {

@@ -43,7 +43,9 @@
     "GestionsAdministrateur": "Gestions Administrateur",
     "GestionsAssociation": "Gestions Association",
     "TypeAssociation": "Type Association",
-    "AddMembre":"Ajouter un membre"
+    "AddMembre":"Ajouter un membre",
+    "ListMembre":"Liste Membre",
+    "EventAssociation":"événement Association"
   },
   
     "tabs": {

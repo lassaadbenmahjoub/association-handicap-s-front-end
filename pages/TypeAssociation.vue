@@ -1,5 +1,10 @@
 <template>
   <v-container>
+    <v-row>
+      <v-col cols="12">
+        <h1>Créer un Type d'Association</h1>
+      </v-col>
+    </v-row>
     <v-form v-model="valid" ref="form">
       <v-row>
         <!-- Single Name Field -->
@@ -25,7 +30,9 @@
 
 <script>
 import { useToast } from "vue-toastification"; // Import the toast
-
+definePageMeta({
+  middleware: "is-logged-out",
+});
 export default {
   data() {
     return {

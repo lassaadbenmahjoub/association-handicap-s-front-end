@@ -23,7 +23,7 @@ const showGestionsAssociation = computed(
   <VerticalNavLink
     :item="{
       title: $t('Nav.Dashboards'),
-      icon: 'bx-home-smile',
+      icon: 'bx bx-home-smile',  // Corrected icon class
       to: '/super-admin-dashboard',
     }"
   />
@@ -32,42 +32,54 @@ const showGestionsAssociation = computed(
     <VerticalNavLink
       :item="{
         title: $t('Nav.GestionsAdministrateur'),
-        icon: 'bx-user',
+        icon: 'bx bx-user-circle', // Changed icon to a specific user icon
         to: '/GestionsAdministrateur',
       }"
     />
   </template>
-<!-- Liens pour administrateur -->
+  <!-- Liens pour administrateur -->
   <template v-if="showGestionsAssociation">
     <VerticalNavLink
       :item="{
         title: $t('Nav.GestionsAssociation'),
-        icon: 'bx-user',
+        icon: 'bx bx-group', // Changed icon to a group icon
         to: '/GestionsAssociation',
       }"
     />
     <VerticalNavLink
+      :item="{
+        title: $t('Nav.TypeAssociation'),
+        icon: 'bx bx-tag', // Changed icon to a tag icon
+        to: '/TypeAssociation',
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: $t('Nav.AddMembre'),
+        icon: 'bx bx-user-plus', // Changed icon to a user plus icon
+        to: '/MemberAssociation',
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: $t('Nav.ListMembre'),
+        icon: 'bx bx-list-ul', // Changed icon to a list icon
+        to: '/MemberAssociationList',
+      }"
+    />
+    <VerticalNavLink
     :item="{
-      title: $t('Nav.TypeAssociation'),
-      icon: 'bx-user',
-      to: '/TypeAssociation',
+      title: $t('Nav.EventAssociation'),
+      icon: 'bx bx-calendar', // Changed icon to a list icon
+      to: '/EventAssociation',
     }"
   />
-  <VerticalNavLink
-  :item="{
-    title: $t('Nav.AddMembre'),
-    icon: 'bx-user',
-    to: '/MemberAssociation',
-  }"
-/>
-
-  <VerticalNavLink
-    :item="{
-      title: $t('Nav.AccountSettings'),
-      icon: 'bx-user',
-      to: '/account-settings',
-    }"
-  />
-
-</template>
+    <VerticalNavLink
+      :item="{
+        title: $t('Nav.AccountSettings'),
+        icon: 'bx bx-cog', // Changed icon to a settings gear icon
+        to: '/account-settings',
+      }"
+    />
+  </template>
 </template>

@@ -48,7 +48,9 @@
     "GestionsAdministrateur": "إدارة المسؤول",
     "GestionsAssociation": "إدارة جمعية",
     "TypeAssociation": "نوع جمعية",
-    "AddMembre":"إضافة عضو"
+    "AddMembre":"إضافة عضو",
+    "ListMembre":"قائمة الأعضاء",
+    "EventAssociation":"حدث الجمعية"
   },
   "tabs": {
     "association": "الجمعية",
