@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <h1>Créer un Type d'Association</h1>
+        <h2>{{ $t('typeAssoc') }}</h2>
       </v-col>
     </v-row>
     <v-form v-model="valid" ref="form">
@@ -11,7 +11,7 @@
         <v-col cols="12">
           <v-text-field
             v-model="name"
-            label="Name"
+            :label="$t('name')"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -20,7 +20,7 @@
       <v-row>
         <v-col cols="12">
           <v-btn :disabled="!valid" color="primary" @click="submitForm">
-            Submit
+            {{ $t('submit') }}
           </v-btn>
         </v-col>
       </v-row>

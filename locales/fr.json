@@ -1,4 +1,34 @@
-{
+{ 
+   "event_list": "Liste des événements",
+  "add_event": "Ajouter un Événement",
+  "title": "Titre",
+  "title_required": "Titre requis",
+  "date": "Date",
+  "date_required": "Date requise",
+  "description": "Description",
+  "description_required": "Description requise",
+  "location": "Lieu",
+  "location_required": "Lieu requis",
+  "contact_email": "Email de contact",
+  "email_required": "Email requis",
+  "email_invalid": "Email invalide",
+  "capacity": "Capacité",
+  "capacity_required": "Capacité requise",
+  "add_event_button": "Ajouter l'Événement",
+   "submit": "Soumettre",
+    "membersList": "Liste des Membres",
+    "editMember": "Modifier le Membre",
+    "address": "Adresse",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "deleteConfirmation": "Confirmation de Suppression",
+    "confirmDeleteMessage": "Êtes-vous sûr de vouloir supprimer ce membre ?",
+    "delete": "Supprimer",
+    "nameRequired": "Nom requis",
+    "addressRequired": "Adresse requise",
+    "phoneRequired": "Téléphone requis",
+    "emailRequired": "Email requis",
+    "invalidEmail": "Format de l'email invalide",
   "total_users": "Nombre total d'utilisateurs",
   "accepted_users": "Utilisateurs acceptés",
   "pending_users": "Utilisateurs en attente",
@@ -7,6 +37,7 @@
   "message": "Ce tutoriel vous est proposé par Lokalise",
   "association_management": "Gestion des associations pour handicapés",
   "name": "Nom",
+  "typeAssoc":"Créer un Type d'Association",
   "email": "Email",
   "password": "Mot de passe",
   "confirm_password": "Confirmer le mot de passe",
@@ -37,6 +68,7 @@
     "clickHere": "Cliquez ici pour Connecter"
   },
   "Nav": {
+    "event_list": "Liste des événements",
     "Dashboards": "Tableaux de bord",
     "FrontPages": "Pages d'accueil",
     "AccountSettings": "Paramètres du compte",
@@ -45,7 +77,9 @@
     "TypeAssociation": "Type Association",
     "AddMembre":"Ajouter un membre",
     "ListMembre":"Liste Membre",
-    "EventAssociation":"événement Association"
+    "EventAssociation":"événement Association",
+    "Publications":"Publications",
+    "ListPublications":"Liste Publications"
   },
   
     "tabs": {

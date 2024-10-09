@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <h2>Liste des Membres</h2>
+        <h2>{{ $t('membersList') }}</h2>
         <v-data-table
           :headers="headers"
           :items="members"
@@ -12,10 +12,12 @@
           <!-- Slot pour les actions (éditer/supprimer) -->
           <template v-slot:item.actions="{ item }">
             <v-btn icon @click="openEditDialog(item)">
-              <v-icon>mdi-pencil</v-icon> <!-- Icône d'édition -->
+              <!-- Pencil icon -->
+              <i class="mdi mdi-pencil"></i>
             </v-btn>
             <v-btn icon @click="confirmDeleteMember(item)">
-              <v-icon>mdi-delete</v-icon> <!-- Icône de suppression -->
+              <!-- Delete icon -->
+              <i class="mdi mdi-delete"></i>
             </v-btn>
           </template>
         </v-data-table>
@@ -24,36 +26,52 @@
         <v-dialog v-model="dialog" max-width="600px">
           <v-card>
             <v-card-title>
-              <span class="headline">Modifier le Membre</span>
+              <span class="headline">{{ $t('editMember') }}</span>
             </v-card-title>
             <v-card-text>
               <v-form ref="form" v-model="valid">
-                <v-text-field
-                  v-model="editedMember.name"
-                  label="Nom"
-                  :rules="[v => !!v || 'Nom requis']"
-                />
-                <v-text-field
-                  v-model="editedMember.adresse"
-                  label="Adresse"
-                  :rules="[v => !!v || 'Adresse requise']"
-                />
-                <v-text-field
-                  v-model="editedMember.telephone"
-                  label="Téléphone"
-                  :rules="[v => !!v || 'Téléphone requis']"
-                />
-                <v-text-field
-                  v-model="editedMember.email"
-                  label="Email"
-                  :rules="[v => !!v || 'Email requis']"
-                />
+                <v-row>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editedMember.name"
+                      :label="$t('name')"
+                      :rules="[(v) => !!v || $t('nameRequired')]"
+                      required
+                    />
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editedMember.adresse"
+                      :label="$t('address')"
+                      :rules="[(v) => !!v || $t('addressRequired')]"
+                      required
+                    />
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editedMember.telephone"
+                      :label="$t('phone')"
+                      :rules="[(v) => !!v || $t('phoneRequired')]"
+                      required
+                    />
+                  </v-col>
+                  <v-col cols="12">
+                    <v-text-field
+                      v-model="editedMember.email"
+                      :label="$t('email')"
+                      :rules="[ (v) => !!v || $t('emailRequired'), (v) => /.+@.+\..+/.test(v) || $t('invalidEmail') ]"
+                      required
+                    />
+                  </v-col>
+                </v-row>
               </v-form>
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="green darken-1" text @click="updateMember">Enregistrer</v-btn>
-              <v-btn color="grey" text @click="closeEditDialog">Annuler</v-btn>
+              <v-btn color="green darken-1" text @click="updateMember"
+                >{{ $t('save') }}</v-btn
+              >
+              <v-btn color="grey" text @click="closeEditDialog">{{ $t('cancel') }}</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -62,15 +80,19 @@
         <v-dialog v-model="confirmDialog" max-width="400px">
           <v-card>
             <v-card-title>
-              <span class="headline">Confirmation de Suppression</span>
+              <span class="headline">{{ $t('deleteConfirmation') }}</span>
             </v-card-title>
             <v-card-text>
-              Êtes-vous sûr de vouloir supprimer ce membre ?
+              {{ $t('confirmDeleteMessage') }}
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red" text @click="deleteMember(confirmedMember)">Supprimer</v-btn>
-              <v-btn color="grey" text @click="closeConfirmDialog">Annuler</v-btn>
+              <v-btn color="red" text @click="deleteMember(confirmedMember)"
+                >{{ $t('delete') }}</v-btn
+              >
+              <v-btn color="grey" text @click="closeConfirmDialog"
+                >{{ $t('cancel') }}</v-btn
+              >
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -79,8 +101,9 @@
   </v-container>
 </template>
 
+
 <script>
-import { ref, onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useToast } from "vue-toastification";
 import axios from "~/plugins/axios";
 
@@ -88,7 +111,7 @@ export default {
   setup() {
     const members = ref([]); // Tableau des membres
     const toast = useToast();
-    const $axios = axios().provide.axios; 
+    const $axios = axios().provide.axios;
 
     // État pour la boîte de dialogue
     const dialog = ref(false);
@@ -111,7 +134,9 @@ export default {
         const response = await $axios.get("/api/members");
         members.value = response.data.members;
       } catch (error) {
-        toast.error("Erreur lors de la récupération des membres : " + error.message);
+        toast.error(
+          "Erreur lors de la récupération des membres : " + error.message
+        );
       }
     };
 
@@ -143,12 +168,17 @@ export default {
     const updateMember = async () => {
       if (valid.value) {
         try {
-          await $axios.put(`/api/members/${editedMember.value.id}`, editedMember.value);
+          await $axios.put(
+            `/api/members/${editedMember.value.id}`,
+            editedMember.value
+          );
           toast.success("Membre mis à jour avec succès.");
           closeEditDialog(); // Fermer la boîte de dialogue après mise à jour
           getMembers(); // Rafraîchir la liste des membres
         } catch (error) {
-          toast.error("Erreur lors de la mise à jour du membre : " + error.message);
+          toast.error(
+            "Erreur lors de la mise à jour du membre : " + error.message
+          );
         }
       } else {
         toast.error("Veuillez remplir tous les champs requis.");
@@ -163,7 +193,9 @@ export default {
         closeConfirmDialog(); // Fermer la boîte de dialogue de confirmation
         getMembers(); // Rafraîchir la liste après suppression
       } catch (error) {
-        toast.error("Erreur lors de la suppression du membre : " + error.message);
+        toast.error(
+          "Erreur lors de la suppression du membre : " + error.message
+        );
       }
     };
 

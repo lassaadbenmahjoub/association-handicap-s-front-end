@@ -1,7 +1,7 @@
 <script setup>
 import axios from "axios";
 import { storeToRefs } from "pinia";
-import {ref } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification"; // Import the toast
 import GlobalMenu from "~/components/GlobalMenu.vue";
@@ -44,13 +44,13 @@ const login = async () => {
   // No need for additional status checks here as they are handled by Axios interceptor
   if (userStore.status === "approved") {
     // Uncomment if you want to show success message
-    // toast.success("Connexion réussie !");  
+    // toast.success("Connexion réussie !");
     if (userStore.role === "super_admin") {
       await router.push("/super-admin-dashboard");
     } else if (userStore.role === "administrateur") {
       await router.push("/admin-dashboard");
     } else if (userStore.role === "membre") {
-      await router.push("/member-dashboard");
+      await router.push("/ListPublications");
     } else {
       toast.error("Rôle de compte inconnu.");
     }

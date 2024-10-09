@@ -16,19 +16,19 @@ const showGestionsSuperAdministrateur = computed(
 const showGestionsAssociation = computed(
   () => userStore.role === "administrateur"
 );
+const showGestionsMembre = computed(() => userStore.role === "membre");
 </script>
 
 <template>
-  <!-- 👉 Dashboards VerticalNavGroup-->
-  <VerticalNavLink
-    :item="{
-      title: $t('Nav.Dashboards'),
-      icon: 'bx bx-home-smile',  // Corrected icon class
-      to: '/super-admin-dashboard',
-    }"
-  />
   <!-- 👉 Apps & Pages -->
   <template v-if="showGestionsSuperAdministrateur">
+    <VerticalNavLink
+      :item="{
+        title: $t('Nav.Dashboards'),
+        icon: 'bx bx-home-smile', // Corrected icon class
+        to: '/super-admin-dashboard',
+      }"
+    />
     <VerticalNavLink
       :item="{
         title: $t('Nav.GestionsAdministrateur'),
@@ -68,16 +68,69 @@ const showGestionsAssociation = computed(
       }"
     />
     <VerticalNavLink
-    :item="{
-      title: $t('Nav.EventAssociation'),
-      icon: 'bx bx-calendar', // Changed icon to a list icon
-      to: '/EventAssociation',
-    }"
-  />
+      :item="{
+        title: $t('Nav.EventAssociation'),
+        icon: 'bx bx-calendar', // Changed icon to a list icon
+        to: '/EventAssociation',
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: $t('Nav.Publications'),
+        icon: 'bx bx-book',
+        to: '/Publications',
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: $t('Nav.ListPublications'),
+        icon: 'bx bx-list-ul',
+        to: '/ListPublications',
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: $t('Nav.event_list'),
+        icon: 'bx bx-list-ul',
+        to: '/EventAssociationList',
+      }"
+    />
     <VerticalNavLink
       :item="{
         title: $t('Nav.AccountSettings'),
-        icon: 'bx bx-cog', // Changed icon to a settings gear icon
+        icon: 'bx bx-cog',
+        to: '/account-settings',
+      }"
+    />
+  </template>
+  <!-- Liens pour membre -->
+  <template v-if="showGestionsMembre">
+    <VerticalNavLink
+      :item="{
+        title: $t('Nav.ListPublications'),
+        icon: 'bx bx-list-ul',
+        to: '/ListPublications',
+      }"
+    />
+
+    <VerticalNavLink
+      :item="{
+        title: $t('Nav.Publications'),
+        icon: 'bx bx-book',
+        to: '/Publications',
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: $t('Nav.event_list'),
+        icon: 'bx bx-list-ul',
+        to: '/EventAssociationList',
+      }"
+    />
+    <VerticalNavLink
+      :item="{
+        title: $t('Nav.AccountSettings'),
+        icon: 'bx bx-cog',
         to: '/account-settings',
       }"
     />

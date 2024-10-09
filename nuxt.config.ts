@@ -31,6 +31,7 @@ export default defineNuxtConfig({
     '@/plugins/iconify/icons.css',
     '@layouts/styles/index.scss',
     'vue-toastification/dist/index.css',  // Add toast styles
+    '@mdi/font/css/materialdesignicons.css'
   ],
 
   components: {

@@ -141,6 +141,10 @@ export default {
       }
     },
     async submitForm() {
+      if (!this.formData.type_association_id) {
+        this.toast.error("Veuillez sélectionner un type d'association.");
+       return;
+       }
       if (this.$refs.form.validate()) {
         const payload = {
           type_association_id: this.formData.type_association_id,

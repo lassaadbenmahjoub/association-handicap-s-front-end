@@ -3,26 +3,30 @@
     <v-form v-model="valid" ref="form">
       <v-row>
         <v-col cols="12">
-          <v-text-field v-model="name" label="Name" required></v-text-field>
+          <v-text-field
+            v-model="name"
+            :label="$t('name')"
+            required
+          ></v-text-field>
         </v-col>
         <v-col cols="12">
           <v-text-field
             v-model="adresse"
-            label="Adresse"
+            :label="$t('address')"
             required
           ></v-text-field>
         </v-col>
         <v-col cols="12">
           <v-text-field
             v-model="telephone"
-            label="Téléphone"
+            :label="$t('phone')"
             required
           ></v-text-field>
         </v-col>
         <v-col cols="12">
           <v-text-field
             v-model="email"
-            label="Email"
+            :label="$t('email')"
             required
             type="email"
           ></v-text-field>
@@ -30,7 +34,7 @@
         <v-col cols="12">
           <v-text-field
             v-model="password"
-            label="Mot de passe"
+            :label="$t('password')"
             required
             type="password"
           ></v-text-field>
@@ -38,7 +42,7 @@
         <v-col cols="12">
           <v-text-field
             v-model="password_confirmation"
-            label="Confirmer le mot de passe"
+            :label="$t('confirm_password')"
             required
             type="password"
           ></v-text-field>
@@ -47,13 +51,14 @@
       <v-row>
         <v-col cols="12">
           <v-btn :disabled="!valid" color="primary" @click="submitForm">
-            Submit
+            {{ $t('submit') }}
           </v-btn>
         </v-col>
       </v-row>
     </v-form>
   </v-container>
 </template>
+
 
 <script>
 import { useToast } from "vue-toastification";
