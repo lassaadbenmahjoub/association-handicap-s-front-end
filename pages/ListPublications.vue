@@ -1,27 +1,24 @@
 <template>
   <v-container>
-    <v-row>
-      
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <h1>Mes Publications</h1>
+    <v-row justify="center">
+      <v-col cols="12" md="10" lg="8">
+        <h1 class="page-title">Mes Publications</h1>
       </v-col>
     </v-row>
 
     <!-- Affichage des publications -->
-    <v-row v-if="publications.length">
+    <v-row justify="center" v-if="publications.length">
       <v-col
         v-for="publication in publications"
         :key="publication.id"
         cols="12"
-        md="6"
-        lg="4"
+        md="8"
+        lg="8"
       >
-        <v-card>
+        <v-card class="publication-card">
           <v-col cols="12">
             <!-- Affichage du nom de l'utilisateur -->
-            <h1>Publications de {{ publication.user.name }}</h1>
+            <h1 class="user-name">{{ publication.user.name }}</h1>
           </v-col>
           <v-card-title>{{ publication.titre }}</v-card-title>
           <v-card-text>
@@ -54,8 +51,10 @@
             </div>
           </v-card-text>
 
-          <!-- Boutons Modifier et Supprimer -->
-          <v-card-actions>
+          <!-- Boutons Modifier et Supprimer (Affichés seulement si l'utilisateur connecté est l'auteur) -->
+          <v-card-actions
+            v-if="currentUser && currentUser.id === publication.user.id"
+          >
             <v-btn color="success" @click="openEditDialog(publication)"
               >Modifier</v-btn
             >
@@ -80,38 +79,53 @@
           <span class="headline">Modifier Publication</span>
         </v-card-title>
         <v-card-text>
-          <v-text-field
-            label="Titre"
-            v-model="editedPublication.titre"
-          ></v-text-field>
-          <v-textarea
-            label="Contenu"
-            v-model="editedPublication.contenu"
-          ></v-textarea>
+          <v-row>
+            <v-col cols="12">
+              <v-text-field
+                label="Titre"
+                v-model="editedPublication.titre"
+              ></v-text-field>
+            </v-col>
 
-          <v-file-input
-            label="Modifier PDF"
-            accept="application/pdf"
-            v-model="editedFiles.pdf"
-          />
-          <v-file-input
-            label="Modifier Photo"
-            accept="image/*"
-            v-model="editedFiles.photo"
-          />
-          <v-file-input
-            label="Modifier Vidéo"
-            accept="video/*"
-            v-model="editedFiles.video"
-          />
+            <v-col cols="12">
+              <v-textarea
+                label="Contenu"
+                v-model="editedPublication.contenu"
+              ></v-textarea>
+            </v-col>
+
+            <v-col cols="12">
+              <v-file-input
+                label="Modifier PDF"
+                accept="application/pdf"
+                v-model="editedFiles.pdf"
+              />
+            </v-col>
+
+            <v-col cols="12">
+              <v-file-input
+                label="Modifier Photo"
+                accept="image/*"
+                v-model="editedFiles.photo"
+              />
+            </v-col>
+
+            <v-col cols="12">
+              <v-file-input
+                label="Modifier Vidéo"
+                accept="video/*"
+                v-model="editedFiles.video"
+              />
+            </v-col>
+          </v-row>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="blue darken-1" text @click="closeEditDialog"
-            >Annuler</v-btn
-          >
-          <v-btn color="blue darken-1" text @click="updatePublication"
-            >Enregistrer</v-btn
-          >
+          <v-btn color="blue darken-1" text @click="closeEditDialog">
+            Annuler
+          </v-btn>
+          <v-btn color="blue darken-1" text @click="updatePublication">
+            Enregistrer
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -148,6 +162,7 @@ export default {
       editedPublication: {}, // Stocker les données de la publication en cours d'édition
       editedFiles: { pdf: null, photo: null, video: null }, // Stockage des fichiers modifiés
       publicationToDelete: null, // Stocker l'ID de la publication à supprimer
+      currentUser: null, // Stocker les informations de l'utilisateur connecté
     };
   },
   setup() {
@@ -155,7 +170,8 @@ export default {
     return { toast };
   },
   mounted() {
-    this.fetchPublications(); // Appel à la récupération des publications quand le composant est monté
+    this.fetchPublications();
+    this.fetchCurrentUser();
   },
   methods: {
     handleFileChange(fileType) {
@@ -169,9 +185,20 @@ export default {
       try {
         const response = await this.$axios.get("/api/publications");
         this.publications = response.data.publications;
-        console.log("aaaaaa",this.publications)
       } catch (error) {
         this.toast.error("Erreur lors de la récupération des publications.");
+      }
+    },
+
+    // Récupération des informations de l'utilisateur connecté
+    async fetchCurrentUser() {
+      try {
+        const response = await this.$axios.get("/api/user");
+        this.currentUser = response.data.user;
+      } catch (error) {
+        this.toast.error(
+          "Erreur lors de la récupération des informations de l'utilisateur."
+        );
       }
     },
 
@@ -244,14 +271,13 @@ export default {
           (pub) => pub.id === this.editedPublication.id
         );
         if (index !== -1) {
-          // Utilisez Vue.set si vous êtes encore sur Vue 2.x, sinon utilisez `this.publications.splice`
           this.$set(this.publications, index, response.data.publication);
         }
 
         this.toast.success("Publication mise à jour avec succès.");
         this.closeEditDialog();
       } catch (error) {
-        
+        this.toast.error("Erreur lors de la mise à jour de la publication.");
       }
     },
 
@@ -261,39 +287,47 @@ export default {
     },
 
     // Télécharger le fichier
-    async downloadFile(filePath, fileType) {
-      try {
-        const response = await this.$axios.get(
-          `http://127.0.0.1:8000/storage/${filePath.replace("public/", "")}`,
-          { responseType: "blob" }
-        );
-        const fileURL = window.URL.createObjectURL(new Blob([response.data]));
-        const fileLink = document.createElement("a");
-        fileLink.href = fileURL;
-        fileLink.setAttribute("download", `fichier.${fileType}`);
-        document.body.appendChild(fileLink);
-        fileLink.click();
-      } catch (error) {
-        //this.toast.error("Erreur lors du téléchargement du fichier.");
-      }
+    downloadFile(filePath, fileType) {
+      const link = document.createElement("a");
+      link.href = this.getFileUrl(filePath);
+      link.download = `${fileType}-${Date.now()}`;
+      link.click();
     },
   },
 };
 </script>
 
 <style scoped>
-.v-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-h1 {
+.page-title {
+  font-size: 2.5rem;
+  font-weight: bold;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
 }
 
-v-card {
+.publication-card {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 10px;
   margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.user-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.publication-date {
+  font-size: 0.9rem;
+  color: gray;
+}
+
+.publication-content {
+  margin-top: 16px;
+}
+
+.media-section {
+  margin-top: 16px;
 }
 </style>

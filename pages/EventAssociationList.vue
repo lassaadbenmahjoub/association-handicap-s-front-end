@@ -2,29 +2,26 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <h2>{{ $t('event_list') }}</h2>
+        <h2 class="text-center">{{ $t('event_list') }}</h2>
         <v-list dense>
           <v-list-item-group>
             <v-list-item
               v-for="(event, index) in events"
               :key="index"
               class="event-block"
-              :class="{'bg-light': index % 2 === 0, 'bg-dark': index % 2 !== 0}"
             >
-              <v-card class="text-center text-sm-start">
+              <v-card class="text-center">
                 <v-row no-gutters>
                   <!-- Event content -->
                   <v-col
                     cols="12"
                     sm="8"
-                    order="2"
-                    order-sm="1"
                   >
-                    <v-card-title>
+                    <v-card-title class="event-title text-center">
                       <strong>{{ event.title }}</strong>
                     </v-card-title>
 
-                    <v-card-subtitle>
+                    <v-card-subtitle class="text-left">
                       {{ $t('date') }}: {{ formatDate(event.event_date) }}
                     </v-card-subtitle>
 
@@ -32,9 +29,9 @@
                       {{ event.description }}
                     </v-card-text>
 
-                    <v-card-subtitle>
+                    <v-card-subtitle class="text-left event-location">
                       <!-- Location with icon -->
-                      <v-icon left color="primary">mdi-map-marker</v-icon> 
+                      <i class="mdi mdi-map-marker" style="color: #1976d2; margin-right: 8px;"></i>
                       {{ $t('location') }}: {{ event.location }}<br />
                       {{ $t('capacity') }}: {{ event.capacity }}<br />
                       {{ $t('contact_email') }}: {{ event.contact_email }}
@@ -57,7 +54,7 @@ import axios from "~/plugins/axios";
 
 export default {
   setup() {
-    const events = ref([]); 
+    const events = ref([]);
     const $axios = axios().provide.axios;
     const toast = useToast();
 
@@ -95,38 +92,39 @@ export default {
 
 .event-block {
   padding: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 }
 
 .v-card {
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.v-card-title {
+.event-title {
   font-weight: bold;
   color: #333;
+  margin-bottom: 16px;
 }
 
 .v-card-subtitle {
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   color: #666;
 }
 
 .event-description {
   color: #2196f3;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   background-color: #e3f2fd;
-  padding: 8px;
+  padding: 10px;
   border-radius: 4px;
 }
 
-.bg-light {
-  background-color: #f9f9f9; /* Light background for even-indexed events */
+.event-location {
+  margin-top: 12px;
 }
 
-.bg-dark {
-  background-color: #f0f0f0; /* Darker background for odd-indexed events */
+.text-left {
+  text-align: left;
 }
 </style>
