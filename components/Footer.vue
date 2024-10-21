@@ -3,9 +3,9 @@
     <div class="footer-content">
       <div class="footer-section">
         <h3>Contact</h3>
-        <p class="contact-info">Adresse : <span class="address">23 Rue des Lumières, Ville ABC</span></p>
-        <p class="contact-info">Téléphone : <span class="phone">01 23 45 67 89</span></p>
-        <p class="contact-info">Email : <a href="mailto:info@aveugles-loisir.org">info@aveugles-loisir.org</a></p>
+        <p>Adresse : 123 Rue des Lumières, Ville ABC</p>
+        <p>Téléphone : 01 23 45 67 89</p>
+        <p>Email : <a href="mailto:info@aveugles-loisir.org">info@aveugles-loisir.org</a></p>
       </div>
       <div class="footer-section">
         <h3>Liens Utiles</h3>
@@ -28,7 +28,6 @@
     <div class="footer-bottom">
       <p>&copy; 2024 Association de Culture et de Loisir pour les Aveugles - Tous droits réservés</p>
     </div>
-    <img src="@/assets/images/login.jpg" alt="Image Description" class="footer-image" />
   </footer>
 </template>
 
@@ -40,13 +39,12 @@ export default {
 
 <style scoped>
 .footer {
-  background-color: #ffffff; /* Couleur de fond blanche */
-  color: #000000; /* Couleur du texte noir */
+  background-color: #004080;
+  color: white;
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative; /* Pour le positionnement de l'image */
 }
 
 .footer-content {
@@ -71,7 +69,7 @@ export default {
 }
 
 .footer-section a {
-  color: #000000; /* Couleur du lien noir */
+  color: white;
   text-decoration: none;
 }
 
@@ -89,31 +87,10 @@ export default {
 }
 
 .footer-bottom {
-  margin-top: -1rem;
+  margin-top: 2rem;
   border-top: 1px solid #eee;
   padding-top: 1rem;
   text-align: center;
   width: 100%;
-}
-
-.contact-info {
-  color: green; /* Couleur verte pour les informations de contact */
-}
-
-.address {
-  color: #000000; /* Couleur noire pour l'adresse */
-}
-
-.phone {
-  color: #000000; /* Couleur noire pour le téléphone */
-}
-
-/* Style pour l'image dans le footer */
-.footer-image {
-  position: absolute; 
-  bottom: 40px; 
-  right: 50px; 
-  width: 280px;
-  height: 250px;
 }
 </style>

@@ -80,16 +80,15 @@ export const useUserStore = defineStore("user", {
           throw new Error("User data is missing.");
         }
 
-        const { id, name, email, role, status,nom_association } = user;
+        const { id, name, email, role, status } = user;
 
-        if (!id || !name || !email || !role || !status  || !nom_association ) {
+        if (!id || !name || !email || !role || !status) {
           throw new Error("Incomplete user data.");
         }
         this.$state.id = id;
         this.$state.name = name;
         this.$state.email = email;
         this.$state.role = role;
-        this.$state.nom_association = nom_association;
         this.$state.status = status;
         this.$state.isLoggedIn = true;
 

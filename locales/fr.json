@@ -1,5 +1,4 @@
 { 
-  "title_text":"Ensemble nous sommes plus forts",
    "event_list": "événements",
   "add_event": "Ajouter un Événement",
   "title": "Titre",
@@ -30,8 +29,7 @@
     "phoneRequired": "Téléphone requis",
     "emailRequired": "Email requis",
     "invalidEmail": "Format de l'email invalide",
-  "total_users": "total d'utilisateurs",
-  "pending_users_list":"utilisateurs en attente",
+  "total_users": "Nombre total d'utilisateurs",
   "accepted_users": "Utilisateurs acceptés",
   "pending_users": "Utilisateurs en attente",
   "rejected_users": "Utilisateurs rejetés",
@@ -43,12 +41,12 @@
   "email": "Email",
   "password": "Mot de passe",
   "confirm_password": "Confirmer le mot de passe",
-  "association_name": "Nom de l'organisation",
+  "association_name": "Nom de l'association",
   "organization_type": "Type d'organisation",
   "phone": "Téléphone",
   "role": "Rôle",
   "admin_placeholder": "admin",
-  "association_name_placeholder": "Nom de l'organisation",
+  "association_name_placeholder": "Nom de l'association",
   "phone_placeholder": "23-456-890",
   "select_type_placeholder": "Sélectionner le type",
   "select_role_placeholder": "Sélectionner le rôle",
@@ -90,7 +88,7 @@
       "contact": "Contact"
     },
     "buttons": {
-      "returnToLogin": "Retour"
+      "returnToLogin": "Retour à la page de connexion"
   },
   "user": {
     "name": "John Doe",
@@ -102,9 +100,6 @@
     "logout": "Déconnexion"
   },
   "admin": {
-    "accepted": "Accepté",
-    "rejected": "Rejeté",
-    "pending": "En attente",
     "manageAdministrators": "Gérer les Administrateurs",
     "name": "Nom",
     "telephone": "Téléphone",

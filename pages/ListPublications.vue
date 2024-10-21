@@ -2,14 +2,7 @@
   <v-container>
     <v-row justify="center">
       <v-col cols="12" md="10" lg="8">
-        <!-- Bouton à droite pour ajouter une nouvelle publication -->
-        <v-btn
-          color="primary"
-          @click="redirectToAddPublication"
-          class="add-publication-btn"
-        >
-          Ajouter une Publication
-        </v-btn>
+        <h1 class="page-title">Mes Publications</h1>
       </v-col>
     </v-row>
 
@@ -32,15 +25,12 @@
             <p>{{ publication.contenu }}</p>
 
             <!-- Affichage du PDF -->
-            <!-- Affichage du PDF -->
             <div v-if="publication.pdf">
-              <a
-                :href="getFileUrl(publication.pdf)"
-                target="_blank"
-                rel="noopener noreferrer"
+              <v-btn
+                color="primary"
+                @click="downloadFile(publication.pdf, 'pdf')"
+                >Télécharger PDF</v-btn
               >
-                Voir PDF
-              </a>
             </div>
 
             <!-- Affichage de la photo -->
@@ -184,9 +174,6 @@ export default {
     this.fetchCurrentUser();
   },
   methods: {
-    redirectToAddPublication() {
-      this.$router.push("/publications");
-    },
     handleFileChange(fileType) {
       if (this.editedFiles[fileType]) {
         this.editedPublication[fileType] = this.editedFiles[fileType];
@@ -312,44 +299,35 @@ export default {
 
 <style scoped>
 .page-title {
-  margin-bottom: 30px;
-}
-
-.add-publication-btn {
-  margin-left: auto; /* Aligner à droite */
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 .publication-card {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 10px;
   margin-bottom: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 .user-name {
-  color: #888;
+  font-weight: bold;
+  color: #333;
 }
 
-.d-flex {
-  display: flex;
+.publication-date {
+  font-size: 0.9rem;
+  color: gray;
 }
 
-.justify-space-between {
-  justify-content: space-between;
+.publication-content {
+  margin-top: 16px;
 }
 
-.align-center {
-  align-items: center;
-}
-.btn-large {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #1976d2; /* couleur du bouton (bleu primaire Vuetify) */
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.btn-large:hover {
-  background-color: #1565c0; /* couleur au survol */
+.media-section {
+  margin-top: 16px;
 }
 </style>
