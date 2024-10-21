@@ -1,4 +1,5 @@
 {
+  "title_text":"Together we are stronger",
   "event_list": "évènement",
   "add_event": "Add Event",
   "title": "Title",
@@ -33,6 +34,7 @@
     "accepted_users": "Accepted Users",
     "pending_users": "Pending Users",
     "rejected_users": "Rejected Users",
+    "pending_users_list":"Pending Users",
     "welcome": "Welcome!",
     "message": "This tutorial is brought to you by Lokalise",
     "association_management": "Disabled Association Management 🚀",
@@ -41,12 +43,12 @@
     "email": "Email",
     "password": "Password",
     "confirm_password": "Confirm Password",
-    "association_name": "Association Name",
-    "organization_type": "Organization Type",
+    "association_name": "Organisation Name",
+    "organization_type": "Organisation Type",
     "phone": "Phone",
     "role": "Role",
     "admin_placeholder": "admin",
-    "association_name_placeholder": "Association Name",
+    "association_name_placeholder": "Organisation Name",
     "phone_placeholder": "23-456-890",
     "select_type_placeholder": "Select Type",
     "select_role_placeholder": "Select Role",
@@ -89,7 +91,7 @@
         "contact": "Contact"
     },
     "buttons": {
-      "returnToLogin": "Return to Login Page"
+      "returnToLogin": "Return"
   },
     "user": {
     "name": "John Doe",

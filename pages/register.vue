@@ -5,7 +5,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useUserStore } from '~~/stores/user';
 import { useToast } from "vue-toastification";  
-import waitImage from '@images/soon.png'; 
+import waitImage from '@images/wait.jpg'; 
 
 const route = useRoute();
 const associationName  = ref(route.query.associationName ); 

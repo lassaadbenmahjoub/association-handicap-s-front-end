@@ -8,7 +8,7 @@
         <span class="icon">🔑</span> Connexion
       </router-link>
       <router-link to="/visiteur1" class="login-button">
-        <span class="icon">🔍</span> Chercher Associations
+        <span class="icon">🔍</span> Chercher 
       </router-link>
     </nav>
   </header>

@@ -40,10 +40,17 @@ const showGestionsMembre = computed(() => userStore.role === "membre");
   <!-- Liens pour administrateur -->
   <template v-if="showGestionsAssociation">
     <VerticalNavLink
+    :item="{
+      title: $t('Nav.Dashboards'),
+      icon: 'bx bx-group', // Changed icon to a group icon
+      to: '/admin-dashboard',
+    }"
+  />
+    <VerticalNavLink
       :item="{
         title: $t('Nav.GestionsAssociation'),
         icon: 'bx bx-group', // Changed icon to a group icon
-        to: '/GestionsAssociation',
+        to: '/GestionsOrganisation',
       }"
     />
     <VerticalNavLink
@@ -63,14 +70,14 @@ const showGestionsMembre = computed(() => userStore.role === "membre");
     <VerticalNavLink
       :item="{
         title: $t('Nav.ListMembre'),
-        icon: 'bx bx-list-ul', // Changed icon to a list icon
+        icon: 'bx bx-list-ul', 
         to: '/MemberAssociationList',
       }"
     />
     <VerticalNavLink
       :item="{
         title: $t('Nav.EventAssociation'),
-        icon: 'bx bx-calendar', // Changed icon to a list icon
+        icon: 'bx bx-calendar',
         to: '/EventAssociation',
       }"
     />
