@@ -37,7 +37,10 @@ export default defineNuxtPlugin((nuxtApp) => {
                 toast.error('Erreur serveur, veuillez réessayer plus tard.');
                 return Promise.reject(error); // Prevent further processing
             }
-
+            if (code === 408) {
+                toast.error('Erreur serveur, Aucune data trouvée pour ces critères..');
+                return Promise.reject(error); // Prevent further processing
+            }
             // Handle validation errors (422)
             if (code === 422) {
                 const errors = error.response.data.errors;
@@ -55,9 +58,12 @@ export default defineNuxtPlugin((nuxtApp) => {
 
             // Handle account approval errors (403)
             if (code === 403) {
-                toast.error("Votre compte n'est pas encore approuvé.");
+                toast.error("Votre compte n'est pas encore approuvé ou est bloqué .");
                 return Promise.reject(error); // Prevent further processing
             }
+
+         
+
 
             // Handle conflict errors (409)
             if (code === 409) {

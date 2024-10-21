@@ -6,55 +6,16 @@ import axios from 'axios';
 const administrators = ref([]);
 const loading = ref(false);
 
-// Variables for confirmation dialog
-const dialog = ref(false);
-const selectedUserId = ref(null);
-const selectedAction = ref(null);
-const isButtonDisabled = ref(false);
-
 // Fetch administrators from the API and populate the administrators array
 const fetchAdministrators = async () => {
   try {
     loading.value = true;
-
     const response = await axios.get('/api/administrators');
     administrators.value = response.data.administrators;
   } catch (error) {
     console.error('Error fetching administrators:', error);
   } finally {
     loading.value = false;
-  }
-};
-
-// Show confirmation dialog
-const showConfirmationDialog = (userId, action) => {
-  selectedUserId.value = userId;
-  selectedAction.value = action;
-  dialog.value = true;
-};
-
-// Handle the confirmation of action
-const confirmAction = async () => {
-  if (!selectedUserId.value || !selectedAction.value) return;
-
-  try {
-    isButtonDisabled.value = true;
-
-    const endpoint = selectedAction.value === 'approve'
-      ? `/api/approve-registration/${selectedUserId.value}`
-      : `/api/reject-registration/${selectedUserId.value}`;
-
-    await axios.post(endpoint); // Send request to approve or reject registration
-
-    // Log success message for debugging
-    console.log(`${selectedAction.value === 'approve' ? 'Approved' : 'Rejected'} user with ID: ${selectedUserId.value}`);
-    
-    fetchAdministrators(); // Refresh the list after updating the status
-  } catch (error) {
-    console.error(`Error ${selectedAction.value === 'approve' ? 'approving' : 'rejecting'} user:`, error);
-  } finally {
-    dialog.value = false;
-    isButtonDisabled.value = false;
   }
 };
 
@@ -71,57 +32,25 @@ onMounted(fetchAdministrators);
         :loading="loading" 
         item-value="id"
         class="elevation-1"
-        :headers="[
-          { text: 'Name', value: 'name' },
-          { text: 'Teléphone', value: 'telephone' },
-          { text: 'Status', value: 'status' },
+        :headers="[ 
+          { text: 'Name', value: 'name' }, 
+          { text: 'Teléphone', value: 'telephone' }, 
+          { text: 'Status', value: 'status' }, 
           { text: 'Role', value: 'role' },
-          { text: 'Actions', value: 'actions', sortable: false }
         ]"
       >
-        <template v-slot:[`item.actions`]="{ item }">
+        <template v-slot:[`item.status`]="{ item }">
           <div class="d-flex justify-center">
-            <VBtn 
-              color="success" 
-              small
-              :disabled="isButtonDisabled"
-              @click="showConfirmationDialog(item.id, 'approve')"
-              class="mx-2"
-            >
-            {{ $t('admin.confirm') }}
-            </VBtn>
-            <VBtn 
-              color="error" 
-              small
-              :disabled="isButtonDisabled"
-              @click="showConfirmationDialog(item.id, 'reject')"
-            >
-            {{ $t('admin.cancel') }}
-            </VBtn>
+            <span v-if="item.status === 'approved'" class="text-success">{{ $t('admin.accepted') }}</span>
+            <span v-if="item.status === 'rejected'" class="text-danger">{{ $t('admin.rejected') }}</span>
+            <span v-if="item.status === 'pending'" class="text-warning">{{ $t('admin.pending') }}</span>
           </div>
         </template>
       </VDataTable>
     </VCardText>
-    
-    <VDialog v-model="dialog" max-width="400">
-      <VCard>
-        <VCardTitle class="headline">{{ $t('admin.confirmAction') }}</VCardTitle>
-        <VCardText>
-          {{ $t('admin.confirmText') }} 
-          <span class="font-weight-bold">{{ selectedAction === 'approve' ? $t('admin.accept') : $t('admin.reject') }}</span>
-          {{ $t('admin.thisUser') }}?
-        </VCardText>
-        <VCardActions>
-          <VSpacer />
-          <VBtn color="blue darken-1" text @click="dialog = false">{{ $t('admin.cancel') }}</VBtn> 
-          <VBtn color="green darken-1" text @click="confirmAction">{{ $t('admin.confirm') }}</VBtn> 
-        </VCardActions>
-      </VCard>
-    </VDialog>
-    
-    
   </VCard>
 </template>
+
 
 
 <style lang="scss">

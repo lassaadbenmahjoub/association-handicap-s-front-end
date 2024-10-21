@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <h2>{{ $t('membersList') }}</h2>
+        <h2>{{ $t("membersList") }}</h2>
         <v-data-table
           :headers="headers"
           :items="members"
@@ -19,6 +19,22 @@
               <!-- Delete icon -->
               <i class="mdi mdi-delete"></i>
             </v-btn>
+            <v-btn
+              icon
+              @click="blockMember(item)"
+             
+            >
+              <!-- Block icon -->
+              <i class="mdi mdi-block-helper"></i>
+            </v-btn>
+            <v-btn
+              icon
+              @click="unblockMember(item)"
+            
+            >
+              <!-- Unblock icon -->
+              <i class="mdi mdi-check-circle"></i>
+            </v-btn>
           </template>
         </v-data-table>
 
@@ -26,7 +42,7 @@
         <v-dialog v-model="dialog" max-width="600px">
           <v-card>
             <v-card-title>
-              <span class="headline">{{ $t('editMember') }}</span>
+              <span class="headline">{{ $t("editMember") }}</span>
             </v-card-title>
             <v-card-text>
               <v-form ref="form" v-model="valid">
@@ -59,7 +75,10 @@
                     <v-text-field
                       v-model="editedMember.email"
                       :label="$t('email')"
-                      :rules="[ (v) => !!v || $t('emailRequired'), (v) => /.+@.+\..+/.test(v) || $t('invalidEmail') ]"
+                      :rules="[
+                        (v) => !!v || $t('emailRequired'),
+                        (v) => /.+@.+\..+/.test(v) || $t('invalidEmail'),
+                      ]"
                       required
                     />
                   </v-col>
@@ -68,10 +87,12 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="green darken-1" text @click="updateMember"
-                >{{ $t('save') }}</v-btn
-              >
-              <v-btn color="grey" text @click="closeEditDialog">{{ $t('cancel') }}</v-btn>
+              <v-btn color="green darken-1" text @click="updateMember">{{
+                $t("save")
+              }}</v-btn>
+              <v-btn color="grey" text @click="closeEditDialog">{{
+                $t("cancel")
+              }}</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -80,19 +101,19 @@
         <v-dialog v-model="confirmDialog" max-width="400px">
           <v-card>
             <v-card-title>
-              <span class="headline">{{ $t('deleteConfirmation') }}</span>
+              <span class="headline">{{ $t("deleteConfirmation") }}</span>
             </v-card-title>
             <v-card-text>
-              {{ $t('confirmDeleteMessage') }}
+              {{ $t("confirmDeleteMessage") }}
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="red" text @click="deleteMember(confirmedMember)"
-                >{{ $t('delete') }}</v-btn
-              >
-              <v-btn color="grey" text @click="closeConfirmDialog"
-                >{{ $t('cancel') }}</v-btn
-              >
+              <v-btn color="red" text @click="deleteMember(confirmedMember)">{{
+                $t("delete")
+              }}</v-btn>
+              <v-btn color="grey" text @click="closeConfirmDialog">{{
+                $t("cancel")
+              }}</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -100,7 +121,6 @@
     </v-row>
   </v-container>
 </template>
-
 
 <script>
 import { onMounted, ref } from "vue";
@@ -126,6 +146,7 @@ export default {
       { text: "Téléphone", value: "telephone" },
       { text: "Email", value: "email" },
       { text: "Actions", value: "actions", sortable: false },
+      { text: "Bloquer", value: "block", sortable: false },
     ];
 
     // Fonction pour récupérer les membres
@@ -198,7 +219,26 @@ export default {
         );
       }
     };
+    const blockMember = async (member) => {
+      try {
+        await $axios.post(`/api/block-member/${member.id}`);
+        toast.success("Membre bloqué avec succès.");
+        getMembers(); // Rafraîchir la liste après blocage
+      } catch (error) {
+        toast.error("Erreur lors du blocage du membre : " + error.message);
+      }
+    };
 
+    // Fonction pour débloquer un membre
+    const unblockMember = async (member) => {
+      try {
+        await $axios.post(`/api/unblock-member/${member.id}`);
+        toast.success("Membre débloqué avec succès.");
+        getMembers(); // Rafraîchir la liste après déblocage
+      } catch (error) {
+        toast.error("Erreur lors du déblocage du membre : " + error.message);
+      }
+    };
     // Appel de la fonction lors du montage du composant
     onMounted(() => {
       getMembers();
@@ -219,6 +259,8 @@ export default {
       closeConfirmDialog,
       updateMember,
       valid,
+      blockMember,
+      unblockMember
     };
   },
 };
